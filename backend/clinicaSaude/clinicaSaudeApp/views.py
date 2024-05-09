@@ -1,4 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from rest_framework.decorators import api_view
+
 
 # Create your views here.
 @api_view(["GET"])
@@ -18,16 +21,4 @@ def get_drafts_view(request):
 
     return JsonResponse({"quizzes": quizzes, "error": False, "message": ""}, status=200)
 
-
-def Login(request):
-    return render(request, 'login.html')
-
-def Register(request):
-    return render(request, 'register.html')
-
-def Logout(request):
-    return render(request, 'logout.html')
-
-def Home(request):
-    return render(request, 'home.html')
 

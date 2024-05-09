@@ -7,3 +7,5 @@ def fk(model):
 
 from backend.clinicaSaude.clinicaSaudeApp.models.appointment import *
 from backend.clinicaSaude.clinicaSaudeApp.models.user import *
+from backend.clinicaSaude.clinicaSaudeApp.models.payment import *
+from backend.clinicaSaude.clinicaSaudeApp.models.doctor import *
