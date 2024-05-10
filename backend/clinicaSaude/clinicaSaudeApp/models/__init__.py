@@ -5,7 +5,8 @@ from django.db import models
 def fk(model):
     return models.ForeignKey(model, on_delete=models.CASCADE)
 
-from backend.clinicaSaude.clinicaSaudeApp.models.appointment import *
-from backend.clinicaSaude.clinicaSaudeApp.models.user import *
-from backend.clinicaSaude.clinicaSaudeApp.models.payment import *
-from backend.clinicaSaude.clinicaSaudeApp.models.doctor import *
+
+from .appointment import *
+from .user import *
+from .payment import *
+from .doctor import *
