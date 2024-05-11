@@ -1,10 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from clinicaSaudeApp.models import AuthUser, User, Doctor
-from django.shortcuts import get_object_or_404
-
-from django.http import HttpResponseBadRequest, JsonResponse
+from clinicaSaudeApp.models import AuthUser, User, Doctor, Specialty
+from django.http import  JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
+from clinicaSaudeApp.serializers import GetDoctorInfo
 
 
 @api_view(["POST"])
@@ -45,13 +44,22 @@ def create_doctor_view(request):
     email = request.data.get("email")
     specialty = request.data.get("specialty")
 
-    doctor_already_exists = Doctor.objects.filter(email=email).exists()
+    doctor_already_exists = Doctor.objects.filter(email=email, name=name).exists()
 
     if doctor_already_exists:
         return JsonResponse(
             {"invalid": "Doctor already exists", "message": False},
             status=status.HTTP_400_BAD_REQUEST,
         )
+
+    specialty = Specialty.objects.filter(indicator=specialty)
+
+    if not specialty:
+        return JsonResponse(
+            {"invalid": "Undefined specialty", "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    specialty = specialty.first()
 
     doctor = Doctor.objects.create(
         name=name, email=email, specialty=specialty
@@ -83,4 +91,5 @@ def get_doctor_by_id_view(request, id):
             status=status.HTTP_400_BAD_REQUEST,
         )
     doctor = doctor.first()
-    return JsonResponse({"doctor_id": doctor.id, "name": doctor.name, "email": doctor.email, "specialty": doctor.specialty})
+    doctor = GetDoctorInfo(doctor).data
+    return JsonResponse({"doctor": doctor})

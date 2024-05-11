@@ -1,12 +1,10 @@
 from datetime import datetime
-
 from django.contrib.auth.decorators import login_required
 from clinicaSaudeApp.models import AuthUser, User, Doctor, Appointment
 from django.http import HttpResponseBadRequest, JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
-
-from clinicaSaudeApp.serializers import GetAllAppointments, GetAppointment
+from clinicaSaudeApp.serializers import GetAllInfoAppointment
 
 
 
@@ -16,8 +14,8 @@ def create_appointment_view(request):
     print(request.data)
     patient_id = request.data.get("patient_id")
     doctor_id = request.data.get("doctor_id")
-    specialty = request.data.get("specialty")
     date = request.data.get("date")
+    value = request.data.get("value")
     date = datetime.strptime(date, "%d/%m/%Y")
 
 
@@ -30,7 +28,7 @@ def create_appointment_view(request):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
-    appointment_exists = Appointment.objects.filter(patient=patient, doctor=doctor, specialty=specialty, date=date).exists()
+    appointment_exists = Appointment.objects.filter(patient=patient, doctor=doctor, specialty=doctor.specialty, date=date).exists()
 
     if appointment_exists:
         return JsonResponse(
@@ -39,7 +37,7 @@ def create_appointment_view(request):
         )
 
     appointment = Appointment.objects.create(
-        patient=patient, doctor=doctor, specialty=specialty, date=date
+        patient=patient, doctor=doctor, specialty=doctor.specialty, date=date, value=value
     )
 
     appointment.save()
@@ -57,22 +55,19 @@ def get_appointment_by_id_view(request, id):
         )
     appointment = appointment.first()
     return JsonResponse(
-        {"appointment_id": appointment.id, "id": appointment.patient.id, "doctor_id": appointment.doctor.id, "specialty": appointment.specialty})
+        {"appointment_id": appointment.id, "id": appointment.patient.id, "doctor_id": appointment.doctor.id, "specialty": appointment.specialty.indicator})
 
 @api_view(["GET"])
 def get_all_appointments_view(request):
     try:
         appointments = Appointment.objects.all()
-        print(appointments)
         if not appointments:
             return JsonResponse(
                 {"error": "No appointments found", "message": False},
                 status=status.HTTP_404_NOT_FOUND,
             )
 
-        appointments = GetAppointment(appointments, many=True).data
-
-        print(appointments)
+        appointments = GetAllInfoAppointment(appointments, many=True).data
 
         return JsonResponse(appointments, safe=False)
     except Exception as e:

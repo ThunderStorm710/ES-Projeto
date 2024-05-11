@@ -9,9 +9,7 @@ class Payment(models.Model):
 
     appointment = fk(Appointment)
     patient = fk(User)
-    doctor = fk(Doctor)
     value = models.FloatField()
     date = models.DateTimeField()
-    is_paid = models.BooleanField(default=False)
 
 
