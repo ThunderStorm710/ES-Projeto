@@ -83,6 +83,18 @@ def get_doctors_view(request):
 
 
 @api_view(["GET"])
+def get_users_view(request):
+    users = User.objects.all()
+    if not users:
+        return JsonResponse(
+            {"invalid": "No users registered", "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    user_ids = [user.id for user in users]
+    return JsonResponse({"user_ids": user_ids})
+
+
+@api_view(["GET"])
 def get_doctor_by_id_view(request, id):
     doctor = Doctor.objects.filter(id=id)
     if not doctor:

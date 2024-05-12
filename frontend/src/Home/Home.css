@@ -1,0 +1,86 @@
+:root {
+  --background-color: #f8f8f8;
+  --button-color: #89CFF0; /* Azul bebê */
+  --button-hover-color: #71B0D4; /* Azul bebê mais escuro para hover */
+  --text-color: #336699; /* Cor do texto mais clara */
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--background-color);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  margin: 20px auto;
+  width: 80%; /* Ajuste conforme necessário */
+}
+
+.navbar h1 {
+  margin: 0;
+}
+
+.nav-links {
+  display: flex;
+}
+
+.nav-links a, .nav-links button {
+  color: var(--text-color);
+  text-decoration: none;
+  background-color: var(--button-color);
+  border: none;
+  padding: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.nav-links a:hover, .nav-links button:hover {
+  background-color: var(--button-hover-color);
+}
+
+.hero-section {
+  text-align: center;
+  padding: 50px;
+  margin: 20px auto;
+  width: 80%; /* Ajuste conforme necessário */
+  background-color: var(--background-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: var(--background-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin: 20px auto;
+  width: 80%; /* Ajuste conforme necessário */
+}
+
+@media (max-width: 768px) {
+  .navbar, .hero-section, .footer {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .nav-links {
+    flex-direction: column;
+  }
+
+  .nav-links a, .nav-links button {
+    width: 100%;
+    margin: 10px 0;
+  }
+}
