@@ -13,7 +13,7 @@ const Home = ({isAuthenticated, onLogout}) => {
                     ) : (
                         <a href="/login">Login</a>
                     )}
-                    <a href="/appointments">Appointments</a>
+                    <a href="/appointment">Appointments</a>
                     <a href="#contact">Contacts</a>
                     <a href="#about">About Us</a>
                 </div>
