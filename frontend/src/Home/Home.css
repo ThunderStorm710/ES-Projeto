@@ -83,4 +83,34 @@ body, html {
     width: 100%;
     margin: 10px 0;
   }
+  .hero-section .hero-image {
+  position: relative;
+  height: 400px; /* Ajuste a altura conforme necessário */
+  background-image: url(../static/home.jpg); /* Usando template literal do ES6 */
+  background-size: cover;
+  background-position: center;
+  color: white; /* Cor do texto para melhor contraste */
 }
+
+/* Overlay para escurecer a imagem de fundo e melhorar a legibilidade do texto */
+.hero-section .hero-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Overlay escuro */
+  z-index: 1;
+}
+
+/* Assegurando que o texto fique visível por cima do overlay */
+.hero-section .hero-image > h2,
+.hero-section .hero-image > p {
+  position: relative;
+  z-index: 2;
+  padding: 0 20px; /* Algum padding para o texto */
+}
+}
+
+
