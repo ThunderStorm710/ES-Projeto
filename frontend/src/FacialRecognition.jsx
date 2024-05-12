@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function FacialRecognition() {
   const handleRecognition = (imageData) => {
-    axios.post('http://your-api-url.com/api/facial-recognition/', {
+    axios.post('http://127.0.0.1:8000/api/facial-recognition/', {
       image: imageData
     })
     .then(response => {

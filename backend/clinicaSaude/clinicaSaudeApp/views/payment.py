@@ -77,3 +77,6 @@ def get_all_payments_view(request):
             {"error": str(e), "message": False},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
+
+
+

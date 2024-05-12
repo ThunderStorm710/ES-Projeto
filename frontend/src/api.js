@@ -1,5 +1,3 @@
-import config from "config.js";
-
 // const config = { apiUrl: "https://api.moelasware.xyz/" };
 
 const ACCEPT_JSON = {
@@ -15,7 +13,9 @@ class API {
     }
 
     static makePathURL(path) {
-        return new URL(path, config.apiUrl);
+        console.log(path);
+        console.log(new URL(path, "http://localhost:8000/api/"));
+        return new URL(path, "http://localhost:8000/api/");
     }
 
     static makeRequest(
@@ -67,6 +67,63 @@ class API {
         }
     }
 
+    static createDoctor(name, email, specialty) {
+        return this.makeJSONRequest("doctors/", "POST", {
+            name: name,
+            email: email,
+            specialty: specialty,
+        });
+
+    }
+
+    static getDoctors() {
+        return this.makeJSONRequest("doctors/", "GET");
+
+    }
+
+    static getDoctorsByID(id) {
+        return this.makeJSONRequest(`doctors/${id}`, "GET");
+
+    }
+
+    static createAppointment(patient_id, doctor_id, date, value) {
+        return this.makeJSONRequest("appointments/", "POST", {
+            patient_id: patient_id,
+            doctor_id: doctor_id,
+            date: date,
+            value: value,
+        });
+
+    }
+    static getAppointments() {
+        return this.makeJSONRequest("appointments/", "GET");
+
+    }
+
+    static getAppointmentByID(id) {
+        return this.makeJSONRequest(`appointments/${id}`, "GET");
+
+    }
+
+    static createPayment(appointment_id, patient_id, value) {
+        return this.makeJSONRequest("payments/", "POST", {
+            appointment_id: appointment_id,
+            patient_id: patient_id,
+            value: value,
+        });
+
+    }
+
+    static getPayments() {
+        return this.makeJSONRequest("payments/", "GET");
+
+    }
+
+    static getPaymentByID(id) {
+        return this.makeJSONRequest(`payments/${id}`, "GET");
+
+    }
+
     // Get user login token
     static login(username, password) {
         let tokens = this.makeJSONRequest("token/", "POST", {
@@ -97,29 +154,6 @@ class API {
         });
     }
 
-    // Post a quiz
-
-    // Add new submission
-    static createAppointment(test_id, subCorrectFormat) {
-        return this.makeJSONRequest(`appointments/`, "POST", {
-            answers: subCorrectFormat,
-            patient: patient,
-            doctor: doctor,
-            specialty: specialty,
-            date: date,
-            is_confirmed: false,
-            is_done: false,
-        });
-    }
-
-    // Get user with a given id
-    static getUser(user_id) {
-        return this.makeJSONRequest(`users/${user_id}/`);
-    }
-
-    static getAppointments(user_id) {
-        return this.makeJSONRequest(`appointments/${user_id}/`);
-    }
 
     static getAllDoctors() {
         return this.makeJSONRequest(`doctors/`);
@@ -127,7 +161,6 @@ class API {
     static getDoctor(doctor_id) {
         return this.makeJSONRequest(`doctors/${doctor_id}/`);
     }
-
 }
 
 export default API;

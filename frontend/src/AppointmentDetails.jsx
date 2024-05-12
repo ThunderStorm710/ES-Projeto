@@ -5,7 +5,7 @@ function AppointmentDetails() {
   const [details, setDetails] = useState({});
 
   useEffect(() => {
-    axios.get('http://your-api-url.com/api/appointment-details/')
+    axios.get('http://127.0.0.1:8000/api/appointment-details/')
     .then(response => {
       setDetails(response.data);
     })

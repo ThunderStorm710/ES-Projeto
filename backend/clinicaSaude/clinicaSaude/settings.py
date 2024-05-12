@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-d!jxv*@d582%c540gxokmq+8v6_cqghsm3=1$!&=r)7ju7ucsp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["django-env.eba-bcpqmhnk.us-east-1.elasticbeanstalk.com", '127.0.0.1']
+ALLOWED_HOSTS = ["django-env.eba-bcpqmhnk.us-east-1.elasticbeanstalk.com", '127.0.0.1', "localhost"]
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
@@ -42,11 +43,13 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     "clinicaSaudeApp",
     "clinicaSaude",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
