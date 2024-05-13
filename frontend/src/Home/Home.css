@@ -1,54 +1,42 @@
-:root {
-    --background-color: #f8f8f8;
-    --button-color: #89CFF0; /* Azul bebê */
-    --button-hover-color: #71B0D4; /* Azul bebê mais escuro para hover */
-    --text-color: #336699; /* Cor do texto mais clara */
-}
+/* Home.css */
 
 body, html {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    height: 100%; /* Garantir que o body ocupe toda a altura da viewport */
-    width: 100%; /* Garantir que o body ocupe toda a largura da viewport */
 }
-
 
 .navbar {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    background-color: var(--background-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    width: 100%; /* Ocupa a largura total */
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #f0f0f0; /* Cor de fundo leve; ajuste conforme necessário */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.10);
 }
 
-.navbar h1 {
-    margin: 0;
+.navbar-logo {
+    height: 50px; /* Altura do logo */
 }
 
-.nav-links {
+.navbar-links {
     display: flex;
+    align-items: center;
 }
 
-.nav-links a, .nav-links button {
-    color: var(--text-color);
+.navbar-links a, .navbar-links button {
+    color: #336699; /* Cor do texto */
     text-decoration: none;
-    background-color: var(--button-color);
-    border: none;
-    padding: 10px;
-    margin-left: 10px;
-    cursor: pointer;
-    border-radius: 5px;
+    margin-left: 20px;
     font-size: 16px;
+    display: flex;
+    align-items: center;
 }
 
-.nav-links a:hover, .nav-links button:hover {
-    background-color: var(--button-hover-color);
+.navbar-links button {
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .hero-section {
@@ -71,58 +59,16 @@ body, html {
     width: 100%;
     height: 100%;
     background-image: url('../static/home.jpg'); /* Certifique-se que o caminho está correto */
-    background-size: cover;
-    background-position: center;
-    z-index: 1;
+    background-size: cover; /* Garante que a imagem cubra todo o espaço disponível sem ser distorcida */
+    background-position: center; /* Centraliza a imagem na seção */
     display: flex;
-    justify-content: center;
-    align-items: center; /* Centraliza o conteúdo no meio da imagem */
-    flex-direction: column; /* Organiza os elementos filhos em coluna */
+    flex-direction: column;
+    justify-content: center; /* Centraliza o conteúdo textual verticalmente */
 }
-
-.hero-image h2, .hero-image p {
-    color: white;
-    z-index: 2;
-    font-size: 2em; /* Aumenta o tamanho da fonte para maior visibilidade */
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* Adiciona sombra ao texto para melhor legibilidade */
-    margin: 0; /* Remove margens padrão para alinhamento exato */
-    padding: 0.5em; /* Espaçamento entre os elementos */
-}
-
-.hero-image h2 {
-    margin-bottom: 0.2em; /* Espaçamento entre o título e o subtítulo */
-    font-size: 100px;
-}
-
-.hero-image p {
-    font-size: 25px; /* Ajusta o tamanho da fonte do subtítulo */
-}
-
-
-
 
 
 .footer {
     text-align: center;
     padding: 20px;
-    background-color: var(--background-color);
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Ocupa a largura total */
-    margin-top: auto; /* Assegura que o footer fique na parte inferior da viewport se houver pouco conteúdo */
-}
-
-@media (max-width: 768px) {
-    .navbar, .footer {
-        flex-direction: column;
-    }
-
-    .nav-links {
-        flex-direction: column;
-    }
-
-    .nav-links a, .nav-links button {
-        width: 100%;
-        margin: 10px 0;
-    }
+    background-color: #f0f0f0;
 }

@@ -1,0 +1,48 @@
+/* Appointments.css */
+
+.appointments-page {
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+.appointments-page h1, .appointments-page h2 {
+  color: #336699;
+}
+
+.my-appointments, .book-appointment, .clinic-info {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.my-appointments ul, .clinic-info ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.my-appointments li, .clinic-info li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.my-appointments li:last-child, .clinic-info li:last-child {
+  border-bottom: none;
+}
+
+.book-appointment button {
+  background-color: #89CFF0;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.book-appointment button:hover {
+  background-color: #71B0D4;
+}

@@ -1,0 +1,39 @@
+/* CreateAppointment.css */
+
+.create-appointment-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.create-appointment-page h1 {
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+label {
+  margin-bottom: 10px;
+}
+
+select, input, button {
+  padding: 8px;
+  margin-top: 5px;
+}
+
+button {
+  background-color: #89CFF0;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #71B0D4;
+}

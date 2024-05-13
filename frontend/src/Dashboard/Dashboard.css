@@ -1,0 +1,33 @@
+/* Dashboard.css */
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Usa toda a altura da tela */
+  padding: 20px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 300px; /* Largura dos cartões */
+  margin: 0 15px; /* Espaço entre os cartões */
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px); /* Efeito ao passar o mouse */
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #336699; /* Cor do título para destaque */
+}
+
+.card p {
+  color: #666; /* Cor de texto mais suave */
+}

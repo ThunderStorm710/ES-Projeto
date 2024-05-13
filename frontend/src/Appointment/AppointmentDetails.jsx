@@ -1,26 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../Payment/Payment.css';
 
-function AppointmentDetails() {
-  const [details, setDetails] = useState({});
+function AppointmentsDetails() {
+  const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/appointment-details/')
-    .then(response => {
-      setDetails(response.data);
-    })
-    .catch(error => {
-      console.error("Error fetching appointment details", error);
-    });
+    const fetchAppointments = async () => {
+      try {
+        const response = await axios.get('http://yourapi.com/appointments');
+        setAppointments(response.data);
+      } catch (error) {
+        console.error('Error fetching appointments:', error);
+      }
+    };
+
+    fetchAppointments();
   }, []);
 
   return (
-    <div>
-      <p>Time: {details.time}</p>
-      <p>Room: {details.room}</p>
-      <p>Other Information: {details.otherInfo}</p>
+    <div className="appointments-page">
+      <h1>My Appointments</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Doctor</th>
+            <th>Specialty</th>
+          </tr>
+        </thead>
+        <tbody>
+          {appointments.map(appointment => (
+            <tr key={appointment.id}>
+              <td>{appointment.date}</td>
+              <td>{appointment.time}</td>
+              <td>{appointment.doctor}</td>
+              <td>{appointment.specialty}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
 
-export default AppointmentDetails;
+export default AppointmentsDetails;
