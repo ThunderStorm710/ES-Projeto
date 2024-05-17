@@ -12,5 +12,3 @@ class Payment(models.Model):
     date = models.DateTimeField()
     is_done = models.BooleanField(default=False)
     is_canceled = models.BooleanField(default=False)
-
-

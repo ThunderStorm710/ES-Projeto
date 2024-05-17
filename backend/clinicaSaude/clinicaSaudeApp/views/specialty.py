@@ -5,6 +5,7 @@ from django.http import HttpResponseBadRequest, JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
 from clinicaSaudeApp.serializers import GetSpecialty
+import boto3
 
 
 #@login_required()
@@ -29,6 +30,13 @@ def create_specialty_view(request):
 #@login_required()
 @api_view(["GET"])
 def get_all_specialties_view(request):
+    dynamodb = boto3.resource('dynamodb', region_name='us-west-2')  # Substitua pela sua região
+
+    # Nome da tabela
+    table_name = 'sua_tabela'
+
+    # Obtendo a tabela
+    table = dynamodb.Table(table_name)
     try:
         specialties = Specialty.objects.all()
         print(specialties)
@@ -44,3 +52,5 @@ def get_all_specialties_view(request):
             {"error": str(e), "message": False},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
+
+
