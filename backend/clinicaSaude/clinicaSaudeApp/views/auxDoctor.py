@@ -1,6 +1,5 @@
 import boto3
-
-from backend.clinicaSaude.clinicaSaudeApp.views.auxSpecialty import getSpecialtiesById
+import auxSpecialty
 
 
 def insertDoctor(item):
@@ -19,7 +18,7 @@ def insertDoctor(item):
     # Obtendo a tabela
     table = dynamodb.Table(table_name)
 
-    data = getAllDoctors()
+    data = auxSpecialty.getAllDoctors()
 
     for existing_item in data:
         if existing_item['email'] == item['email']:
@@ -79,11 +78,11 @@ def getAllDoctors():
 
 
 if __name__ == '__main__':
-    print(insertDoctor({
+    '''print(insertDoctor({
         "name": "Pedro",
         "specialty": "1",
         "email": "pedro@dei.pt",
         "room": "A"
-    }))
+    }))'''
     print(getAllDoctors())
     print(getDoctorsById("1"))
