@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from clinicaSaudeApp.models import AuthUser, User, Doctor, Specialty
-from django.http import  JsonResponse
+from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
 from clinicaSaudeApp.serializers import GetDoctorInfo

@@ -8,7 +8,7 @@ from . import views
 
 urlpatterns = [
     #path('login', views.Login),
-    path('register/', views.register_view),
+    path('registration/', views.register_view),
     path('users/', views.get_users_view),
 
     path('doctors/', views.create_doctor_view),
@@ -26,7 +26,6 @@ urlpatterns = [
     path('specialty/', views.create_specialty_view),
     #path('specialty/', views.get_all_specialties_view),
 
-    #path('logout', views.Logout),
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("token/blacklist/", TokenBlacklistView.as_view(), name="token_blacklist"),

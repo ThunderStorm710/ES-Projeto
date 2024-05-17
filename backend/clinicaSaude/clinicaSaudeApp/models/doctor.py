@@ -8,4 +8,5 @@ class Doctor(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
     specialty = fk(Specialty)
+    room = models.CharField(max_length=10)
 

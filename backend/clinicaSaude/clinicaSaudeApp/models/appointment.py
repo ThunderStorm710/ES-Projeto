@@ -13,5 +13,7 @@ class Appointment(models.Model):
     value = models.FloatField()
     specialty = fk(Specialty)
     date = models.DateTimeField()
+    is_scheduled = models.BooleanField(default=False)
+    is_finished = models.BooleanField(default=False)
 
 
