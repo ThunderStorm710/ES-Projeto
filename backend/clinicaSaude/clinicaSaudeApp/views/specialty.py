@@ -7,10 +7,13 @@ from rest_framework.decorators import api_view
 from clinicaSaudeApp.serializers import GetSpecialty
 import boto3
 
+from . import auxSpecialty
 
-#@login_required()
+
+# @login_required()
 @api_view(["POST"])
 def create_specialty_view(request):
+    '''
     id = request.data.get("indicator")
 
     specialty = Specialty.objects.filter(indicator=id).exists()
@@ -24,20 +27,23 @@ def create_specialty_view(request):
     specialty = Specialty.objects.create(indicator=id)
 
     specialty.save()
+    '''
 
-    return JsonResponse({"id": specialty.id, "message": True})
+    id, message = auxSpecialty.insertSpecialty(request.data)
 
-#@login_required()
+    if id != -1:
+        return JsonResponse({"id": id, "message": True})
+    else:
+        return JsonResponse(
+            {"invalid": message, "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+# @login_required()
 @api_view(["GET"])
 def get_all_specialties_view(request):
-    dynamodb = boto3.resource('dynamodb', region_name='us-west-2')  # Substitua pela sua região
-
-    # Nome da tabela
-    table_name = 'sua_tabela'
-
-    # Obtendo a tabela
-    table = dynamodb.Table(table_name)
     try:
+        '''
         specialties = Specialty.objects.all()
         print(specialties)
         if not specialties:
@@ -47,10 +53,12 @@ def get_all_specialties_view(request):
             )
         specialties = GetSpecialty(specialties, many=True).data
         return JsonResponse(specialties, safe=False)
+        '''
+        data = auxSpecialty.getAllSpecialties()
+        return JsonResponse(data, safe=False)
+
     except Exception as e:
         return JsonResponse(
             {"error": str(e), "message": False},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
-
-
