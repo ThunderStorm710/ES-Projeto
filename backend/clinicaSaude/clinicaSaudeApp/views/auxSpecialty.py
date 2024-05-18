@@ -2,7 +2,6 @@ import boto3
 
 
 def insertSpecialty(item):
-
     if item is None or 'name' not in item:
         return -1, "Name not inserted"
 
@@ -34,6 +33,10 @@ def insertSpecialty(item):
 
 
 def getSpecialtiesById(id):
+
+    if type(id) != dict:
+        id = {'SpecialtyId': id}
+
     # Criando o cliente DynamoDB
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')  # Substitua pela sua região
 

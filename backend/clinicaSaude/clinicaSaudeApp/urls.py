@@ -8,11 +8,14 @@ from . import views
 
 urlpatterns = [
     #path('login', views.Login),
+    path('index/', views.index_face_view),
+    path('search/', views.search_face_view),
+
     path('registration/', views.register_view),
     path('users/', views.get_users_view),
 
-    path('doctors/', views.create_doctor_view),
-    #path('doctors/', views.get_doctors_view),
+    #path('doctors/', views.create_doctor_view),
+    path('doctors/', views.get_doctors_view),
     path('doctor/<int:id>', views.get_doctor_by_id_view),
 
     path('appointments/', views.create_appointment_view),

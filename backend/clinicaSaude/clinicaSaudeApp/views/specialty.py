@@ -8,6 +8,7 @@ from clinicaSaudeApp.serializers import GetSpecialty
 import boto3
 
 from . import auxSpecialty
+from .auxFunctions.populate_slot import populate_time_slots
 
 
 # @login_required()
@@ -28,7 +29,7 @@ def create_specialty_view(request):
 
     specialty.save()
     '''
-
+    populate_time_slots(doctor_id=1, date='2024-05-18', start_hour=9, end_hour=17)
     id, message = auxSpecialty.insertSpecialty(request.data)
 
     if id != -1:

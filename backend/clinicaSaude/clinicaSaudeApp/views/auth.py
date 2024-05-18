@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
 from clinicaSaudeApp.serializers import GetDoctorInfo
+from . import auxDoctor
 
 
 @api_view(["POST"])
@@ -40,6 +41,7 @@ def register_view(request):
 
 @api_view(["POST"])
 def create_doctor_view(request):
+    '''
     name = request.data.get("name")
     email = request.data.get("email")
     specialty = request.data.get("specialty")
@@ -66,12 +68,21 @@ def create_doctor_view(request):
     )
 
     doctor.save()
+    '''
+    id, message = auxDoctor.insertDoctor(request.data)
 
-    return JsonResponse({"id": doctor.id, "message": True})
+    if id != -1:
+        return JsonResponse({"id": id, "message": True})
+    else:
+        return JsonResponse(
+            {"invalid": message, "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
 
 @api_view(["GET"])
 def get_doctors_view(request):
+    '''
     doctors = Doctor.objects.all()
     if not doctors:
         return JsonResponse(
@@ -79,6 +90,17 @@ def get_doctors_view(request):
             status=status.HTTP_400_BAD_REQUEST,
         )
     doctors_ids = [doctor.id for doctor in doctors]
+    '''
+    data = auxDoctor.getAllDoctors()
+    doctors_ids = []
+    if data is None:
+        return JsonResponse(
+            {"invalid": "No doctors registered", "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    for i in data:
+        doctors_ids.append(i['DoctorId'])
+
     return JsonResponse({"doctor_ids": doctors_ids})
 
 
@@ -96,6 +118,7 @@ def get_users_view(request):
 
 @api_view(["GET"])
 def get_doctor_by_id_view(request, id):
+    '''
     doctor = Doctor.objects.filter(id=id)
     if not doctor:
         return JsonResponse(
@@ -104,4 +127,13 @@ def get_doctor_by_id_view(request, id):
         )
     doctor = doctor.first()
     doctor = GetDoctorInfo(doctor).data
+    '''
+
+    doctor = auxDoctor.getDoctorsById(str(id))
+    if doctor is None:
+        return JsonResponse(
+            {"invalid": "Doctor does not exist", "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
     return JsonResponse({"doctor": doctor})
