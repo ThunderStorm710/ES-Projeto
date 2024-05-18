@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a0790ba-82dc-4448-8318-127401e98bec" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend" beforeDir="false" afterPath="$PROJECT_DIR$/backend" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend" beforeDir="false" afterPath="$PROJECT_DIR$/frontend" afterDir="false" />
+    <list default="true" id="0a0790ba-82dc-4448-8318-127401e98bec" name="Changes" comment="Inicio State Machine e Face ID">
+      <change beforePath="$PROJECT_DIR$/.idea/ES-Projeto.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ES-Projeto.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/clinicaSaude/clinicaSaudeApp/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/clinicaSaude/clinicaSaudeApp/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/node_modules/.cache/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/node_modules/.cache/.eslintcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/node_modules/.cache/default-development/0.pack" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/node_modules/.cache/default-development/0.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/node_modules/.cache/default-development/index.pack" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/node_modules/.cache/default-development/index.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +24,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JSX File" />
         <option value="JavaScript File" />
+        <option value="JSX File" />
+        <option value="CSS File" />
         <option value="Python Script" />
       </list>
     </option>
@@ -47,28 +55,144 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/USER1/Desktop/ES-Projeto/backend/clinicaSaude/clinicaSaudeApp/serializers",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.auxSpecialty.executor&quot;: &quot;Run&quot;,
+    &quot;Python.index_faces.executor&quot;: &quot;Run&quot;,
+    &quot;Python.search_faces.executor&quot;: &quot;Run&quot;,
+    &quot;Python.teste.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/pasce/OneDrive/Ambiente de Trabalho/ES-Projeto/backend/clinicaSaude/clinicaSaudeApp/views/auxFunctions&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\pasce\OneDrive\Ambiente de Trabalho\ES-Projeto\backend\clinicaSaude\clinicaSaudeApp\views\auxFunctions" />
       <recent name="C:\Users\USER1\Desktop\ES-Projeto\backend\clinicaSaude\clinicaSaudeApp\serializers" />
       <recent name="C:\Users\USER1\Desktop\ES-Projeto\backend\clinicaSaude\clinicaSaudeApp\views" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\pasce\OneDrive\Ambiente de Trabalho\ES-Projeto\frontend\src" />
       <recent name="C:\Users\USER1\Desktop\ES-Projeto\backend\clinicaSaude\clinicaSaudeApp" />
     </key>
+  </component>
+  <component name="RunManager" selected="Python.auxSpecialty">
+    <configuration name="auxSpecialty" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ES-Projeto" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend/clinicaSaude/clinicaSaudeApp/views" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend/clinicaSaude/clinicaSaudeApp/views/auxSpecialty.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="index_faces" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ES-Projeto" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend/clinicaSaude/clinicaSaudeApp/views/auxFunctions" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend/clinicaSaude/clinicaSaudeApp/views/auxFunctions/index_faces.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="search_faces" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ES-Projeto" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.10 (BD)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend/clinicaSaude/clinicaSaudeApp/views/auxFunctions" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend/clinicaSaude/clinicaSaudeApp/views/auxFunctions/search_faces.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="teste" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ES-Projeto" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend/clinicaSaude/clinicaSaudeApp/views/auxFunctions" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend/clinicaSaude/clinicaSaudeApp/views/auxFunctions/teste.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.auxSpecialty" />
+      <item itemvalue="Python.index_faces" />
+      <item itemvalue="Python.search_faces" />
+      <item itemvalue="Python.teste" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.auxSpecialty" />
+        <item itemvalue="Python.teste" />
+        <item itemvalue="Python.search_faces" />
+        <item itemvalue="Python.index_faces" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -90,11 +214,82 @@
       <workItem from="1715216202331" duration="143000" />
       <workItem from="1715351963162" duration="2845000" />
       <workItem from="1715356233550" duration="11389000" />
+      <workItem from="1715545561329" duration="1646000" />
+      <workItem from="1715550065050" duration="10539000" />
+      <workItem from="1715616350184" duration="6449000" />
+      <workItem from="1715782647408" duration="11631000" />
+      <workItem from="1715856212093" duration="3592000" />
+      <workItem from="1715890622379" duration="8368000" />
+      <workItem from="1715954876001" duration="987000" />
+      <workItem from="1715955900656" duration="128000" />
+      <workItem from="1715973733585" duration="252000" />
+      <workItem from="1715985524231" duration="31000" />
+      <workItem from="1715986031200" duration="706000" />
     </task>
+    <task id="LOCAL-00001" summary="Frontend bastante avançado">
+      <option name="closed" value="true" />
+      <created>1715563522174</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1715563522174</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Base de dados Postgres AWS feita">
+      <option name="closed" value="true" />
+      <created>1715628929176</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715628929177</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Base de dados Postgres AWS feita">
+      <option name="closed" value="true" />
+      <created>1715628935178</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1715628935178</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Inicio State Machine e Face ID">
+      <option name="closed" value="true" />
+      <created>1715817571971</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1715817571972</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Inicio State Machine e Face ID">
+      <option name="closed" value="true" />
+      <created>1715954998735</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1715954998735</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Inicio State Machine e Face ID">
+      <option name="closed" value="true" />
+      <created>1715955080086</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1715955080086</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
@@ -102,5 +297,15 @@
       <path value="$PROJECT_DIR$/frontend" />
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
+    <MESSAGE value="Frontend bastante avançado" />
+    <MESSAGE value="Base de dados Postgres AWS feita" />
+    <MESSAGE value="Inicio State Machine e Face ID" />
+    <option name="LAST_COMMIT_MESSAGE" value="Inicio State Machine e Face ID" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ES_Projeto$index_faces.coverage" NAME="index_faces Coverage Results" MODIFIED="1715857004620" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/clinicaSaude/clinicaSaudeApp/views/auxFunctions" />
+    <SUITE FILE_PATH="coverage/ES_Projeto$auxSpecialty.coverage" NAME="auxSpecialty Coverage Results" MODIFIED="1715986140278" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/clinicaSaude/clinicaSaudeApp/views" />
+    <SUITE FILE_PATH="coverage/ES_Projeto$search_faces.coverage" NAME="search_faces Coverage Results" MODIFIED="1715857115874" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/clinicaSaude/clinicaSaudeApp/views/auxFunctions" />
+    <SUITE FILE_PATH="coverage/ES_Projeto$teste.coverage" NAME="teste Coverage Results" MODIFIED="1715906298162" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/clinicaSaude/clinicaSaudeApp/views/auxFunctions" />
   </component>
 </project>
