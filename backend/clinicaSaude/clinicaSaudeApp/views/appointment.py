@@ -12,6 +12,8 @@ from django.conf import settings
 from django.core.files.storage import default_storage
 from .auxFunctions.compare_faces import compare_faces
 
+from .auxFunctions.state_machine import state_machine
+
 
 # @login_required()
 @api_view(["POST"])
@@ -64,6 +66,8 @@ def create_appointment_view(request):
 
     payment.save()
 
+    state_machine({"appointment_id": appointment.id, "payment_id": payment.id})
+
     return JsonResponse({"id": appointment.id, "message": True})
 
 
@@ -78,7 +82,8 @@ def get_appointment_by_id_view(request, id):
         )
     appointment = appointment.first()
     return JsonResponse(
-        {"appointment_id": appointment.id, "id": appointment.patient.id, "doctor_id": appointment.doctor_id, "value": appointment.value})
+        {"appointment_id": appointment.id, "id": appointment.patient.id, "doctor_id": appointment.doctor_id,
+         "value": appointment.value})
 
 
 @api_view(["GET"])
@@ -107,7 +112,7 @@ def upload_image(request):
         image = request.FILES['image']
         save_path = os.path.join(settings.MEDIA_ROOT, image.name)
         path = default_storage.save(save_path, image)
-        #search_faces_by_image(image.name)
+        # search_faces_by_image(image.name)
         compare_faces(image.name)
         return JsonResponse({'url': f"{settings.MEDIA_URL}{image.name}"})
     return JsonResponse({'error': 'Invalid request or missing image file'}, status=400)

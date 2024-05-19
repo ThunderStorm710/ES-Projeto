@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view
 from clinicaSaudeApp.serializers import GetAllInfoPayment
 
 
-#@login_required()
+# @login_required()
 @api_view(["POST"])
 def create_payment_view(request):
     appointment_id = request.data.get("appointment_id")
@@ -48,14 +48,17 @@ def create_payment_view(request):
         payment.date = datetime.now()
         payment.save()
         return JsonResponse(
-            {"payment_id": payment.id, "patient_id": payment.patient.id, "appointment_id": payment.appointment.id, "value": payment.value, "is_done": payment.is_done, "is_canceled": payment.is_canceled, "date": payment.date})
+            {"payment_id": payment.id, "patient_id": payment.patient.id, "appointment_id": payment.appointment.id,
+             "value": payment.value, "is_done": payment.is_done, "is_canceled": payment.is_canceled,
+             "date": payment.date})
 
-    #payment = Payment.objects.create(appointment=appointment, patient=patient, value=value, date=datetime.now())
-    #payment.save()
+    # payment = Payment.objects.create(appointment=appointment, patient=patient, value=value, date=datetime.now())
+    # payment.save()
 
     return JsonResponse({"id": payment.id, "message": True})
 
-#@login_required()
+
+# @login_required()
 @api_view(["GET"])
 def get_payment_by_id_view(request, id):
     payment = Payment.objects.filter(id=id)
@@ -66,7 +69,9 @@ def get_payment_by_id_view(request, id):
         )
     payment = payment.first()
     return JsonResponse(
-        {"payment_id": payment.id, "patient_id": payment.patient.id, "appointment_id": payment.appointment.id, "value": payment.value})
+        {"payment_id": payment.id, "patient_id": payment.patient.id, "appointment_id": payment.appointment.id,
+         "value": payment.value})
+
 
 @api_view(["GET"])
 def get_all_payments_view(request):
@@ -89,6 +94,3 @@ def get_all_payments_view(request):
             {"error": str(e), "message": False},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
-
-
-

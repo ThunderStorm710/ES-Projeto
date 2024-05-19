@@ -22,8 +22,8 @@ urlpatterns = [
     path('doctors/', views.get_doctors_view),
     path('doctor/<int:id>', views.get_doctor_by_id_view),
 
-    #path('appointments/', views.create_appointment_view),
-    path('appointments/', views.get_all_appointments_view),
+    path('appointments/', views.create_appointment_view),
+    #path('appointments/', views.get_all_appointments_view),
     path('appointment/<int:id>', views.get_appointment_by_id_view),
 
     path('payments/', views.create_payment_view),

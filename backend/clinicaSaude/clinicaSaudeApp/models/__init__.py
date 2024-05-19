@@ -11,3 +11,5 @@ from .payment import *
 from .doctor import *
 from .specialty import *
 from .slot import *
+from .posts import *
+
