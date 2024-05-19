@@ -37,9 +37,21 @@ def create_payment_view(request):
             {"invalid": "Patient does not match with appointment", "message": False},
             status=status.HTTP_400_BAD_REQUEST)
 
-    payment = Payment.objects.create(appointment=appointment, patient=patient, value=value, date=datetime.now())
+    payment = Payment.objects.filter(appointment=appointment, patient=patient, value=value).first()
 
-    payment.save()
+    if not payment:
+        return JsonResponse(
+            {"invalid": "Payment not found", "message": False},
+            status=status.HTTP_400_BAD_REQUEST)
+    else:
+        payment.is_done = True
+        payment.date = datetime.now()
+        payment.save()
+        return JsonResponse(
+            {"payment_id": payment.id, "patient_id": payment.patient.id, "appointment_id": payment.appointment.id, "value": payment.value, "is_done": payment.is_done, "is_canceled": payment.is_canceled, "date": payment.date})
+
+    #payment = Payment.objects.create(appointment=appointment, patient=patient, value=value, date=datetime.now())
+    #payment.save()
 
     return JsonResponse({"id": payment.id, "message": True})
 

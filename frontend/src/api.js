@@ -59,7 +59,7 @@ class API {
 
     static register(username, password, repeat_password, email) {
         if (password === repeat_password) {
-            return this.makeJSONRequest("register/", "POST", {
+            return this.makeJSONRequest("registration/", "POST", {
                 username: username,
                 password: password,
                 email: email,
@@ -102,6 +102,13 @@ class API {
 
     static getAppointmentByID(id) {
         return this.makeJSONRequest(`appointments/${id}`, "GET");
+
+    }
+
+    static beginAppointment(image) {
+        return this.makeJSONRequest("upload/", "POST", {
+            image: image,
+        });
 
     }
 

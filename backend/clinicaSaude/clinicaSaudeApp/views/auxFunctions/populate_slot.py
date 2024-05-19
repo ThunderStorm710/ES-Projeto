@@ -30,4 +30,4 @@ def populate_time_slots(doctor_id, date, start_hour, end_hour):
 
 
 # Exemplo de uso:
-populate_time_slots(doctor_id=1, date='2024-05-18', start_hour=9, end_hour=17)
+#populate_time_slots(doctor_id=1, date='2024-05-18', start_hour=9, end_hour=17)

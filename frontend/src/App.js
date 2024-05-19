@@ -7,7 +7,8 @@ import Home from "./Home/Home";
 import API from "./api";
 import AppointmentsDetails from "./Appointment/AppointmentDetails";
 import Payments from "./Payment/Payment";
-import CreateAppointment from "./Appointment/CreateAppointment";  // Supondo que o componente Home esteja em ./Home/Home
+import CreateAppointment from "./Appointment/CreateAppointment";
+import AppointmentBegin from "./Appointment/AppointmentBegin";  // Supondo que o componente Home esteja em ./Home/Home
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -29,6 +30,7 @@ function App() {
         <Route path="/appointment" element={isLoggedIn() ? <AppointmentsDetails /> : <Navigate replace to="/" />} />
         <Route path="/newAppointment" element={isLoggedIn() ? <CreateAppointment /> : <Navigate replace to="/" />} />
         <Route path="/payments" element={isLoggedIn() ? <Payments /> : <Navigate replace to="/" />} />
+        <Route path="/upload" element={isLoggedIn() ? <AppointmentBegin /> : <Navigate replace to="/" />} />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </Router>
