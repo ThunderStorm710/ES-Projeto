@@ -62,9 +62,14 @@ def create_appointment_view(request):
 
     appointment.save()
 
+    slot.is_available = False
+
+    slot.save()
+
     payment = Payment.objects.create(appointment=appointment, patient=patient, value=value, date=datetime.now())
 
     payment.save()
+
 
     state_machine({"appointment_id": appointment.id, "payment_id": payment.id})
 
