@@ -10,11 +10,17 @@ from .slot import TimeSlot
 
 class Appointment(models.Model):
 
-    slot = models.OneToOneField(TimeSlot, on_delete=models.CASCADE)
+    slot = fk(TimeSlot)
     patient = fk(User)
     doctor_id = models.IntegerField(validators=[MinValueValidator(1)])
     value = models.FloatField()
     is_scheduled = models.BooleanField(default=False)
     is_finished = models.BooleanField(default=False)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['slot'], condition=models.Q(is_scheduled=True),
+                                    name='unique_scheduled_slot')
+        ]
 
 

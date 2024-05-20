@@ -9,7 +9,7 @@ def state_machine(input_data):
     client = boto3.client('stepfunctions')
 
     # Defina o ARN da sua State Machine
-    state_machine_arn = 'arn:aws:iam::888746109608:role/LabRole'
+    state_machine_arn = 'arn:aws:states:us-east-1:888746109608:stateMachine:Workflow-Pagamento'
 
     try:
         # Inicie a execução da State Machine
@@ -26,3 +26,7 @@ def state_machine(input_data):
 
     except Exception as e:
         print('Error starting execution:', e)
+
+
+if __name__ == '__main__':
+    state_machine({"appointment_id": 5, "payment_id": 3})

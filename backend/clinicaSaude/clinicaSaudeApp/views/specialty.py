@@ -56,6 +56,8 @@ def get_all_specialties_view(request):
         return JsonResponse(specialties, safe=False)
         '''
         data = auxSpecialty.getAllSpecialties()
+
+        populate_time_slots(doctor_id=1, date='2024-05-18', start_hour=9, end_hour=17)
         return JsonResponse(data, safe=False)
 
     except Exception as e:

@@ -30,8 +30,8 @@ urlpatterns = [
     #path('payments/', views.get_all_payments_view),
     path('payment/<int:id>', views.get_payment_by_id_view),
 
-    path('specialty/', views.create_specialty_view),
-    #path('specialty/', views.get_all_specialties_view),
+    #path('specialty/', views.create_specialty_view),
+    path('specialty/', views.get_all_specialties_view),
 
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),

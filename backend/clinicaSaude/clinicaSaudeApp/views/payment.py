@@ -17,9 +17,9 @@ def create_payment_view(request):
     appointment = Appointment.objects.filter(id=appointment_id, value=value).first()
     payment = Payment.objects.filter(id=appointment_id, value=value)
 
-    if payment.exists():
+    if not payment.exists():
         return JsonResponse(
-            {"invalid": "Payment already exists", "message": False},
+            {"invalid": "Payment does not exist", "message": False},
             status=status.HTTP_400_BAD_REQUEST,
         )
 
@@ -45,6 +45,7 @@ def create_payment_view(request):
             status=status.HTTP_400_BAD_REQUEST)
     else:
         payment.is_done = True
+        payment.is_canceled = False
         payment.date = datetime.now()
         payment.save()
         return JsonResponse(

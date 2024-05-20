@@ -18,6 +18,7 @@ from .auxFunctions.state_machine import state_machine
 # @login_required()
 @api_view(["POST"])
 def create_appointment_view(request):
+
     print(request.data)
     slot_id = request.data.get("slot_id")
     patient_id = request.data.get("patient_id")
@@ -38,16 +39,20 @@ def create_appointment_view(request):
             {"invalid": "Doctor does not exist", "message": False},
             status=status.HTTP_400_BAD_REQUEST,
         )
-    print(doctor, "---")
 
     slot = TimeSlot.objects.filter(id=slot_id).first()
 
-    if not slot or (slot is not None and slot.is_available == False):
+    if not slot:
         return JsonResponse(
-            {"invalid": "Slot does not exist or is unavailable", "message": False},
+            {"invalid": "Slot does not exist", "message": False},
             status=status.HTTP_400_BAD_REQUEST,
         )
-
+    if slot is not None and not slot.is_available:
+        return JsonResponse(
+            {"invalid": "Slot is unavailable", "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    '''
     appointment_exists = Appointment.objects.filter(patient=patient, doctor_id=doctor_id, slot=slot).exists()
 
     if appointment_exists:
@@ -55,7 +60,7 @@ def create_appointment_view(request):
             {"invalid": "Appointment already exists", "message": False},
             status=status.HTTP_400_BAD_REQUEST,
         )
-
+    '''
     appointment = Appointment.objects.create(
         patient=patient, doctor_id=doctor_id, value=value, slot=slot
     )
@@ -69,7 +74,6 @@ def create_appointment_view(request):
     payment = Payment.objects.create(appointment=appointment, patient=patient, value=value, date=datetime.now())
 
     payment.save()
-
 
     state_machine({"appointment_id": appointment.id, "payment_id": payment.id})
 
@@ -89,6 +93,9 @@ def get_appointment_by_id_view(request, id):
     return JsonResponse(
         {"appointment_id": appointment.id, "id": appointment.patient.id, "doctor_id": appointment.doctor_id,
          "value": appointment.value})
+
+
+
 
 
 @api_view(["GET"])
