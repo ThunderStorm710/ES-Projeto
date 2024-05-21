@@ -112,6 +112,17 @@ class API {
 
     }
 
+    static createSpecialty(name) {
+        return this.makeJSONRequest("specialty/", "POST", {
+            name: name,
+        });
+
+    }
+    static getSpecialty() {
+        return this.makeJSONRequest("specialty/", "GET");
+
+    }
+
     static createPayment(appointment_id, patient_id, value) {
         return this.makeJSONRequest("payments/", "POST", {
             appointment_id: appointment_id,
@@ -167,6 +178,14 @@ class API {
     }
     static getDoctor(doctor_id) {
         return this.makeJSONRequest(`doctors/${doctor_id}/`);
+    }
+
+    static getDoctorsBySpecialtyId(speacialty_id) {
+        return this.makeJSONRequest(`specialty/${speacialty_id}/doctors/`);
+    }
+
+    static getTimeSlotsByDoctorId(doctor_id) {
+        return this.makeJSONRequest(`doctors/${doctor_id}/slots/`);
     }
 }
 

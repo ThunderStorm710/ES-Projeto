@@ -1,29 +1,40 @@
-/* CreateAppointment.css */
-
 .create-appointment-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .create-appointment-page h1 {
   margin-bottom: 20px;
+  color: #333;
 }
 
 form {
   display: flex;
   flex-direction: column;
   width: 300px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 label {
   margin-bottom: 10px;
+  font-weight: bold;
+  color: #555;
 }
 
 select, input, button {
-  padding: 8px;
+  padding: 10px;
   margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 button {
@@ -32,6 +43,8 @@ button {
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
 }
 
 button:hover {

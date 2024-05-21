@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './CreateAppointment.css'; // Assegure-se de criar e importar o arquivo CSS correspondente
+import './CreateAppointment.css';
+import API from "../api";
 
 function CreateAppointment() {
   const [formData, setFormData] = useState({
@@ -8,6 +9,43 @@ function CreateAppointment() {
     specialty: '',
     date: ''
   });
+
+  const [specialties, setSpecialties] = useState([]);
+  const [doctors, setDoctors] = useState([]);
+  const [timeSlots, setTimeSlots] = useState([]);
+
+
+
+  useEffect(() => {
+    async function fetchSpecialties() {
+      try {
+          API.getSpecialty().then((data) => setSpecialties(data));
+      } catch (error) {
+        console.error('Error fetching specialties:', error);
+      }
+    }
+
+    async function fetchDoctors() {
+      try {
+          API.getDoctorsBySpecialtyId(id).then((data) => setDoctors(data));
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+      }
+    }
+
+    async function fetchTimeSlots() {
+      try {
+          API.getDoctorsBySpecialtyId(id).then((data) => setDoctors(data));
+        setTimeSlots(response.data);
+      } catch (error) {
+        console.error('Error fetching time slots:', error);
+      }
+    }
+
+    fetchSpecialties();
+    fetchDoctors();
+    fetchTimeSlots();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +60,7 @@ function CreateAppointment() {
     try {
       const response = await axios.post('http://yourapi.com/appointments', formData);
       alert('Appointment created successfully!');
-      console.log(response.data); // Exibe a resposta do backend no console
+      console.log(response.data);
     } catch (error) {
       console.error('Error creating appointment:', error);
       alert('Failed to create appointment.');
@@ -37,24 +75,32 @@ function CreateAppointment() {
           Specialty:
           <select name="specialty" value={formData.specialty} onChange={handleChange}>
             <option value="">Select Specialty</option>
-            <option value="Dermatology">Dermatology</option>
-            <option value="Cardiology">Cardiology</option>
-            <option value="Pediatrics">Pediatrics</option>
-            {/* Add more specialties as needed */}
+            {specialties.map(specialty => (
+              <option key={specialty.id} value={specialty.name}>{specialty.name}</option>
+            ))}
           </select>
         </label>
         <label>
           Doctor:
           <select name="doctor" value={formData.doctor} onChange={handleChange}>
             <option value="">Select Doctor</option>
-            <option value="Dr. Smith">Dr. Smith</option>
-            <option value="Dr. Johnson">Dr. Johnson</option>
-            {/* Add more doctors as needed */}
+            {doctors.map(doctor => (
+              <option key={doctor.id} value={doctor.name}>{doctor.name}</option>
+            ))}
           </select>
         </label>
         <label>
           Date:
           <input type="date" name="date" value={formData.date} onChange={handleChange} />
+        </label>
+        <label>
+          Time Slot:
+          <select name="timeSlot" value={formData.timeSlot} onChange={handleChange}>
+            <option value="">Select Time Slot</option>
+            {timeSlots.map(slot => (
+              <option key={slot.id} value={slot.time}>{slot.time}</option>
+            ))}
+          </select>
         </label>
         <button type="submit">Create Appointment</button>
       </form>
