@@ -48,6 +48,11 @@ def insertDoctor(item):
 
 
 def getDoctorsById(id):
+    if id is None or id == '':
+        return -1, "Invalid field"
+
+    if type(id) != str:
+        id = str(id)
     # Criando o cliente DynamoDB
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')  # Substitua pela sua região
 

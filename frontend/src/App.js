@@ -27,7 +27,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home onLogout={handleLogout} />} />
         <Route path="/login" element={isLoggedIn() ? <Navigate replace to="/appointment" /> : <Login onLogin={() => setIsAuthenticated(true)} />} />
-        <Route path="/appointment" element={isLoggedIn() ? <AppointmentsDetails /> : <Navigate replace to="/" />} />
+        <Route path="/appointment" element={isLoggedIn() ? <Appointment /> : <Navigate replace to="/" />} />
         <Route path="/newAppointment" element={isLoggedIn() ? <CreateAppointment /> : <Navigate replace to="/" />} />
         <Route path="/payments" element={isLoggedIn() ? <Payments /> : <Navigate replace to="/" />} />
         <Route path="/upload" element={isLoggedIn() ? <AppointmentBegin /> : <Navigate replace to="/" />} />

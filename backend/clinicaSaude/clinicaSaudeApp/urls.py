@@ -8,7 +8,6 @@ from . import views
 
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
 urlpatterns = [
     #path('login', views.Login),
     path('index/', views.index_face_view),
@@ -22,14 +21,17 @@ urlpatterns = [
     path('doctors/', views.get_doctors_view),
     path('doctor/<int:id>/', views.get_doctor_by_id_view),
     path('doctors/<int:id>/slots/', views.get_slots_by_doctor_view),
+    path('doctors/<int:id>/slots/day/', views.get_date_slots_by_doctor_view),
 
     path('appointments/', views.create_appointment_view),
     #path('appointments/', views.get_all_appointments_view),
     path('appointment/<int:id>/', views.get_appointment_by_id_view),
+    path('user/appointments/', views.get_appointment_by_patient_id_view),
 
     path('payments/', views.create_payment_view),
     #path('payments/', views.get_all_payments_view),
     path('payment/<int:id>/', views.get_payment_by_id_view),
+    path('user/payments/', views.get_payment_by_patient_id_view),
 
     #path('specialty/', views.create_specialty_view),
     path('specialty/', views.get_all_specialties_view),
@@ -40,4 +42,5 @@ urlpatterns = [
     path("token/blacklist/", TokenBlacklistView.as_view(), name="token_blacklist"),
     path('upload/', views.upload_image, name='image-upload'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+from django.urls import path
 

@@ -98,6 +98,10 @@ class API {
         return this.makeJSONRequest(`appointments/${id}`, "GET");
 
     }
+    static getAppointmentByPatientID() {
+        return this.makeJSONRequest(`user/appointments/`, "GET");
+
+    }
 
     static beginAppointment(image) {
         return this.makeJSONRequest("upload/", "POST", {
@@ -133,6 +137,11 @@ class API {
 
     static getPaymentByID(id) {
         return this.makeJSONRequest(`payments/${id}`, "GET");
+
+    }
+
+    static getPaymentByPatientID() {
+        return this.makeJSONRequest(`user/payments/`, "GET");
 
     }
 
@@ -180,6 +189,9 @@ class API {
 
     static getTimeSlotsByDoctorId(doctor_id) {
         return this.makeJSONRequest(`doctors/${doctor_id}/slots/`);
+    }
+    static getDateSlotsByDoctorId(doctor_id) {
+        return this.makeJSONRequest(`doctors/${doctor_id}/slots/day/`);
     }
 }
 

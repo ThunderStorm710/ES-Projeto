@@ -7,7 +7,6 @@ function CreateAppointment() {
     const [formData, setFormData] = useState({
         doctor: '',
         specialty: '',
-        date: '',
         timeSlot: '',
         patient: ''
     });
@@ -48,7 +47,8 @@ function CreateAppointment() {
         }
 
         fetchDoctors();
-    }, [formData.specialty]);
+    }, [formData.specialty])
+
 
     useEffect(() => {
         async function fetchTimeSlots() {
@@ -130,10 +130,6 @@ function CreateAppointment() {
                             <option key={doctor.DoctorId} value={doctor.DoctorId}>{doctor.DoctorName}</option>
                         ))}
                     </select>
-                </label>
-                <label>
-                    Date:
-                    <input type="date" name="date" value={formData.date} onChange={handleChange} />
                 </label>
                 <label>
                     Time Slot:

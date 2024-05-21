@@ -18,12 +18,6 @@ from .auxFunctions.state_machine import state_machine
 @api_view(["POST"])
 def create_appointment_view(request):
 
-    print()
-    print(request.user.username)
-    print()
-
-    print(request)
-
     if "slot_id" not in request.data or "doctor_id" not in request.data or "value" not in request.data:
         return JsonResponse(
             {"invalid": "Missing parameters", "message": False},
@@ -110,6 +104,42 @@ def get_appointment_by_id_view(request, id):
     return JsonResponse(
         {"appointment_id": appointment.id, "id": appointment.patient.id, "doctor_id": appointment.doctor_id,
          "value": appointment.value})
+
+
+
+@api_view(["GET"])
+def get_appointment_by_patient_id_view(request):
+    if "patient_id" not in request.data or request.data.get("patient_id") == -1:
+        user = User.objects.filter(user__username=request.user).first()
+        patient_id = user.id
+        appointment = Appointment.objects.filter(patient=user)
+
+    else:
+        patient_id = request.data.get("patient_id")
+        appointment = Appointment.objects.filter(patient_id=patient_id)
+
+
+    if not appointment:
+        return JsonResponse(
+            {"invalid": "Appointments do not exist", "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    response = []
+    for p in appointment:
+        slot = p.slot
+        doctor = auxDoctor.getDoctorsById(slot.doctor_id)
+        print(doctor, "------------_")
+        specialty = auxSpecialty.getSpecialtiesById(doctor['specialty_id'])
+        response.append(
+            {"id": p.id, "patient": p.patient.id, "date": slot.date, "start_time": slot.start_time, "specialty": specialty['name'], "doctor": doctor['name'],
+             "value": p.value, "is_finished": p.is_finished, "is_scheduled": p.is_scheduled}
+        )
+
+    print(response)
+
+    return JsonResponse(
+        {"appointments": response})
 
 
 

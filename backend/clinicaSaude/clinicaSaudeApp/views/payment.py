@@ -6,6 +6,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from clinicaSaudeApp.serializers import GetAllInfoPayment
 
+from . import auxDoctor, auxSpecialty
+
 
 # @login_required()
 @api_view(["POST"])
@@ -72,6 +74,40 @@ def get_payment_by_id_view(request, id):
     return JsonResponse(
         {"payment_id": payment.id, "patient_id": payment.patient.id, "appointment_id": payment.appointment.id,
          "value": payment.value})
+
+
+@api_view(["GET"])
+def get_payment_by_patient_id_view(request):
+    if "patient_id" not in request.data or request.data.get("patient_id") == -1:
+        user = User.objects.filter(user__username=request.user).first()
+        patient_id = user.id
+    else:
+        patient_id = request.data.get("patient_id")
+
+    payment = Payment.objects.filter(patient_id=patient_id)
+
+    if not payment:
+        return JsonResponse(
+            {"invalid": "Payments do not exist", "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    response = []
+    for p in payment:
+        appointment = Appointment.objects.filter(id=p.appointment.id).first()
+        slot = appointment.slot
+        doctor = auxDoctor.getDoctorsById(slot.doctor_id)
+        print(doctor, "------------_")
+        specialty = auxSpecialty.getSpecialtiesById(doctor['specialty_id'])
+        response.append(
+            {"id": p.id, "patient": p.patient.id, "date": slot.date, "start_time": slot.start_time, "specialty": specialty['name'], "doctor": doctor['name'],
+             "value": p.value, "is_done": p.is_done, "is_canceled": p.is_canceled}
+        )
+
+    print(response)
+
+    return JsonResponse(
+        {"payments": response})
 
 
 @api_view(["GET"])
