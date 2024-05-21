@@ -51,12 +51,6 @@ class API {
     }
 
 
-    static getUserSubmissions(user_id) {
-        return this.makeJSONRequest(
-            "users/" + user_id.toString() + "/submissions/"
-        );
-    }
-
     static register(username, password, repeat_password, email) {
         if (password === repeat_password) {
             return this.makeJSONRequest("registration/", "POST", {
@@ -86,11 +80,11 @@ class API {
 
     }
 
-    static createAppointment(patient_id, doctor_id, date, value) {
+    static createAppointment(patient_id, doctor_id, slot_id, value) {
         return this.makeJSONRequest("appointments/", "POST", {
             patient_id: patient_id,
             doctor_id: doctor_id,
-            date: date,
+            slot_id: slot_id,
             value: value,
         });
 

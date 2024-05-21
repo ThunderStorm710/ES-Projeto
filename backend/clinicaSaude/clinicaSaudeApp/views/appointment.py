@@ -15,13 +15,30 @@ from .auxFunctions.compare_faces import compare_faces
 from .auxFunctions.state_machine import state_machine
 
 
-# @login_required()
 @api_view(["POST"])
 def create_appointment_view(request):
 
+    print()
+    print(request.user.username)
+    print()
+
+    print(request)
+
+    if "slot_id" not in request.data or "doctor_id" not in request.data or "value" not in request.data:
+        return JsonResponse(
+            {"invalid": "Missing parameters", "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    if "patient_id" not in request.data or request.data.get("patient_id") == -1:
+        user = User.objects.filter(user__username=request.user).first()
+        print(user.id, "_---")
+        patient_id = user.id
+    else:
+        patient_id = request.data.get("patient_id")
+
     print(request.data)
     slot_id = request.data.get("slot_id")
-    patient_id = request.data.get("patient_id")
     doctor_id = request.data.get("doctor_id")
     value = request.data.get("value")
 
