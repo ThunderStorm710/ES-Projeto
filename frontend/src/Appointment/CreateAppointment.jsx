@@ -35,7 +35,7 @@ function CreateAppointment() {
 
     async function fetchTimeSlots() {
       try {
-          API.getDoctorsBySpecialtyId(id).then((data) => setDoctors(data));
+          API.getTimeSlotsByDoctorId(id).then((data) => setDoctors(data));
         setTimeSlots(response.data);
       } catch (error) {
         console.error('Error fetching time slots:', error);
