@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import './Payment.css';
+import '../static/Loading.css';
 import API from "../api";
+import heart from "../static/heart.png";
 
 function Payments() {
     const [payments, setPayments] = useState([]);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchPayments() {
@@ -13,6 +16,8 @@ function Payments() {
                 const data = await API.getPaymentByPatientID();
                 setPayments(data.payments);
                 console.log(data.payments);
+                setLoading(false);
+
             } catch (error) {
                 console.error('Error fetching payments:', error);
             }
@@ -32,36 +37,42 @@ function Payments() {
     };
 
     const handleRowClick = (paymentId) => {
-        navigate(`/payment-details`, { state: { paymentId } });
+        navigate(`/payment-details`, {state: {paymentId}});
     };
-
+    if (loading) {
+        return (
+            <div className="loading-container">
+                <img src={heart} alt="Loading" className="loading-image" />
+            </div>
+        );
+    }
     return (
         <div className="payments-page">
             <h1>My Payments</h1>
             <table className="payments-table">
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Doctor</th>
-                        <th>Specialty</th>
-                        <th>Date</th>
-                        <th>Beginning</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                    </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Doctor</th>
+                    <th>Specialty</th>
+                    <th>Date</th>
+                    <th>Beginning</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {payments.map(payment => (
-                        <tr key={payment.id} onClick={() => handleRowClick(payment.id)} className="clickable-row">
-                            <td>{payment.id}</td>
-                            <td>Dr. {payment.doctor}</td>
-                            <td>{payment.specialty}</td>
-                            <td>{payment.date}</td>
-                            <td>{payment.start_time}</td>
-                            <td>{payment.value} €</td>
-                            <td>{getStatus(payment)}</td>
-                        </tr>
-                    ))}
+                {payments.map(payment => (
+                    <tr key={payment.id} onClick={() => handleRowClick(payment.id)} className="clickable-row">
+                        <td>{payment.id}</td>
+                        <td>Dr. {payment.doctor}</td>
+                        <td>{payment.specialty}</td>
+                        <td>{payment.date}</td>
+                        <td>{payment.start_time}</td>
+                        <td>{payment.value} €</td>
+                        <td>{getStatus(payment)}</td>
+                    </tr>
+                ))}
                 </tbody>
             </table>
         </div>

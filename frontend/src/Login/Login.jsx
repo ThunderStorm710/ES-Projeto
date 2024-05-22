@@ -12,7 +12,7 @@ function Login() {
         repeat_password: "",
         email: "",
     });
-
+    const [image, setImage] = useState(null); // Novo estado para armazenar a imagem
     const [errorLogin, setErrorLogin] = useState("");
     const [errorRegister, setErrorRegister] = useState("");
     const navigate = useNavigate();
@@ -31,9 +31,13 @@ function Login() {
         }));
     }
 
+    function handleImageChange(event) {
+        setImage(event.target.files[0]); // Define a imagem selecionada
+    }
+
     const handleLogin = async (event) => {
         event.preventDefault();
-                console.log(inputs);
+        console.log(inputs);
         try {
             await API.login(inputs.username, inputs.password);
             if (isLoggedIn()) {
@@ -51,12 +55,17 @@ function Login() {
         console.log(inputs);
         if (inputs.password === inputs.repeat_password) {
             try {
-                const data = await API.register(
-                    inputs.username,
-                    inputs.password,
-                    inputs.repeat_password,
-                    inputs.email
-                );
+                const formData = new FormData();
+                formData.append('username', inputs.username);
+                formData.append('password', inputs.password);
+                formData.append('repeat_password', inputs.repeat_password);
+                formData.append('email', inputs.email);
+                if (image) {
+                    formData.append('image', image); // Adiciona a imagem ao FormData
+                }
+
+                const data = await API.register(formData); // Ajusta a chamada da API para enviar o FormData
+
                 if (data.message) {
                     await API.login(inputs.username, inputs.password);
                     if (isLoggedIn()) {
@@ -79,14 +88,15 @@ function Login() {
         <div className="login-container">
             <h1>{isLoginView ? 'Login' : 'Sign up'}</h1>
             <form onSubmit={isLoginView ? handleLogin : handleRegister}>
-                <input type="text" placeholder="Username" name="username" value={inputs.username} onChange={handleChange}/>
+                <input type="text" placeholder="Username" name="username" value={inputs.username} onChange={handleChange} />
                 {!isLoginView && (
-                    <input type="email" placeholder="Email" name="email" value={inputs.email} onChange={handleChange}/>
+                    <>
+                        <input type="email" placeholder="Email" name="email" value={inputs.email} onChange={handleChange} />
+                        <input type="password" placeholder="Repeat Password" name="repeat_password" value={inputs.repeat_password} onChange={handleChange} />
+                        <input type="file" name="image" accept="image/*" onChange={handleImageChange} /> {/* Campo de upload de imagem */}
+                    </>
                 )}
-                <input type="password" placeholder="Password" name="password" value={inputs.password} onChange={handleChange}/>
-                {!isLoginView && (
-                    <input type="password" placeholder="Repeat Password" name="repeat_password" value={inputs.repeat_password} onChange={handleChange}/>
-                )}
+                <input type="password" placeholder="Password" name="password" value={inputs.password} onChange={handleChange} />
                 <button type="submit">
                     {isLoginView ? 'Login' : 'Sign up'}
                 </button>

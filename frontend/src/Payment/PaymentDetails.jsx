@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
 import API from "../api";
 import './PaymentDetails.css';
+import '../static/Loading.css';
+import heart from "../static/heart.png";
+
 
 function PaymentDetails() {
     const location = useLocation();
-    const { paymentId } = location.state;
+    const {paymentId} = location.state;
     const [paymentDetails, setPaymentDetails] = useState(null);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchPaymentDetails() {
             try {
                 const data = await API.getPaymentByID(paymentId);
                 setPaymentDetails(data);
+                setLoading(false);
+
             } catch (error) {
                 console.error('Error fetching payment details:', error);
             }
@@ -34,13 +40,19 @@ function PaymentDetails() {
     };
 
     const handleConsultation = () => {
-        navigate('/upload', { state: { appointmentId: paymentDetails.appointment_id } });
+        navigate('/upload', {state: {appointmentId: paymentDetails.appointment_id}});
     };
 
     if (!paymentDetails) {
         return <div>Loading...</div>;
     }
-
+    if (loading) {
+        return (
+            <div className="loading-container">
+                <img src={heart} alt="Loading" className="loading-image" />
+            </div>
+        );
+    }
     return (
         <div className="payment-details-page">
             <h1>Payment Details</h1>

@@ -11,7 +11,6 @@ import os
 from django.conf import settings
 from django.core.files.storage import default_storage
 from .auxFunctions.compare_faces import compare_faces
-
 from .auxFunctions.state_machine import state_machine
 
 

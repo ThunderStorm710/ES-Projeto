@@ -2,9 +2,9 @@ import boto3
 
 
 def search_faces_by_image(image):
-    aws_access_key_id = "ASIA453LFNKUJHSI3QVT"
-    aws_secret_access_key = "hV/+ANOyshXkyuIOY20d3kRYcRKZcXxbPoiL+ih2"
-    aws_session_token = "IQoJb3JpZ2luX2VjEJH//////////wEaCXVzLXdlc3QtMiJHMEUCIHoiMkvgt8YTOaSXW+lq5fB/6KYKU+1XUOU5lyywGyVSAiEAwjhh2/fObqQWXep5nK3VKXgtvx3QguRcc8UDtRnNwQ0qvQII+v//////////ARAAGgw4ODg3NDYxMDk2MDgiDKgZTII1d0kOm0OozSqRAnP03iXHqAEzfhiVRjRd3OePLWh8v+yZwUzwNpymE1xAjwMBlV9LwqfJq+OCBF6v52v5iEyOKSQTRMzm1/YGdgUOoaXdHbbR69jvTeGW5VhRexz23sZtDZXsq5yyKCT1YNNVeloE/VDwfgL9vnLXvJPRw9NU8r1acF/rP29Z9IFS1vK0ElcT6K77Dx2S0JUX1bq2UltHILoBQ/WyjZ7PTD3Hk9EUd/uU3xaK7Z5Z4Iq5YXjImCZe5fvLz45ckV5lfeA/CFDA2WyxrxQmYsqFFz5YXy45bwlxnCia/Pu5iDomx3BtvOwmq93jJXSfu/C29Jol3d/EmwqGYB+zWBDz0GDnBX9mun7BtPPMOCil8mS/pDCrl6WyBjqdAfuvGVl7B9rm4Nzgmyff8XqDAN/zokPqQxv41OuzTPDUtBzq4SDL447Dy+LTsS6iEXac7xqkDzvxZxdbHj1drM3jrnz4BoDMAj9CouFRObYA3r3wYOtHL3WTHcIFj2+I9F9DRaelZtvlrGrcjE6TE/xreNelWxz/edVHQyS6zuU7kbSwXOImDylrsOdQtoPV1/nbL4y9neV4cW+5jAg="
+    aws_access_key_id = "ASIA453LFNKUMU74524W"
+    aws_secret_access_key = "NABlH/tLniw3yv7NuHZNw4WZc7UMdoeb2mgT8VSF"
+    aws_session_token = "IQoJb3JpZ2luX2VjEOr//////////wEaCXVzLXdlc3QtMiJGMEQCIDygnYDrkQnaDs5YmL3hgkWjZ2bGls9TIOXTJ7Tk/HeQAiAJLUJSW4MVd3u+Q++PcnL0ArFjFBuP51zThvTCw3BbqCq0AghjEAAaDDg4ODc0NjEwOTYwOCIMM4gxf+FADCp+upeAKpECvgqgEGI9zRVe/HaDzYFYQm2iJtNpI3xOvQeWDpUDN4yv2n5xHyZjsCFIrow+fADMxcIFHXKexqd6PpfYbU33JBkQp1XzP8jKGijzleXKQqlOO/fEB87s5IkblS45ueIH8hcxfoElsGDnwPPJ+fbsR5GI6P0k1+6dGfhxM6xfVovXYenlXDbR3c69VlCuEjludsw2PlsVWaM52eOT7YLAUs+WDxwfl65yJISbPDMrPAAK8N2eclipWYJ+9947g6ZvrbkbYPLI2PZ5hOb2umMxfUmadaFeYCA2I+cuyDu2XTvKAMwlnzEWdWUf3OuQk1lrdoR3g7/CXXmHoDaQk7QPV1wMW555s3HpfhdLSxCksVTBMMnmuLIGOp4B2M/8EH6LAq9yJeZxYSkyubuuXVcq615LZEMaQcrs2DkRyDHvypXhJAOXHrF19q455xpn5Ogu/PmUgDydZAfhLOhuc6JEG2hwa7tNuocX79zxJe97t2eFX/9g1eDOeBcLehgM+cgpLeLVduJkXfsCcU5AN+Kah6KNZPlLJ9ePNgY7wVOBKo+CmD5eMOzT3BQ+headF/+N0LZhfRNa7zA="
 
     s3 = boto3.resource('s3', region_name='us-east-1',
                         aws_access_key_id=aws_access_key_id,
@@ -18,18 +18,42 @@ def search_faces_by_image(image):
 
     my_bucket = s3.Bucket('clinic-clients-images')
 
+    with open(image, "rb") as image_file:
+        imagem = image_file.read()
+
     for my_bucket_object in my_bucket.objects.all():
         print(my_bucket_object.key)
 
+    '''
     response = client.search_faces_by_image(
         CollectionId='clinicasaudecollection',
         Image={
             'S3Object': {
                 'Bucket': 'clinic-clients-images',
-                'Name': '63706.jpg'
+                'Name': '.jpg'
             }
         },
         MaxFaces=123,
     )
+    '''
+    #response = client.list_faces(CollectionId='clinicasaudecollection')
+    #print(response['Faces'])
 
-    print(response)
+    response = client.search_faces_by_image(
+        CollectionId='clinicasaudecollection',
+        Image={'Bytes': imagem},
+        MaxFaces=5,
+        FaceMatchThreshold=95
+    )
+
+    if 'ExternalImageId' in response['Face']:
+        return response['Face']['ExternalImageId']
+    else:
+        return -1
+
+
+
+if __name__ == '__main__':
+    with open("C://Users/pasce/OneDrive/Ambiente de Trabalho/ES-Projeto/backend/clinicaSaude/media/download.jpg", "rb") as image_file:
+        image1_bytes = image_file.read()
+    search_faces_by_image(image1_bytes)
