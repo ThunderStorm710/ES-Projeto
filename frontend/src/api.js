@@ -90,7 +90,7 @@ class API {
 
     }
     static getAppointments() {
-        return this.makeJSONRequest("appointments/", "GET");
+        return this.makeJSONRequest("all-appointments/", "GET");
 
     }
 
@@ -139,7 +139,7 @@ class API {
     }
 
     static getPayments() {
-        return this.makeJSONRequest("payments/", "GET");
+        return this.makeJSONRequest("all-payments/", "GET");
 
     }
 

@@ -162,6 +162,45 @@ def get_payment_by_patient_id_view(request):
 
 @api_view(["GET"])
 def get_all_payments_view(request):
+    payments = Payment.objects.all()
+
+    if not payments:
+        return JsonResponse(
+            {"invalid": "Payments do not exist", "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    response = []
+    doctorList = []
+    for p in payments:
+        doctorList.append(p.appointment.slot.doctor_id)
+
+    doctors = auxDoctor.getDoctorsByIds(doctorList)
+
+    specialtyList = []
+
+    for d in doctors:
+        specialtyList.append(d['specialty_id'])
+
+    specialties = auxSpecialty.getSpecialtiesByIds(specialtyList)
+
+    for i in range(len(payments)):
+        appointment = payments[i].appointment
+        slot = appointment.slot
+        doctor = doctors[i]
+        specialty = specialties[i]
+        user = User.objects.filter(id=payments[i].patient.id).first()
+        response.append(
+            {"id": payments[i].id, "patient": user.user.username, "date": slot.date, "start_time": slot.start_time,
+             "specialty": specialty['name'], "doctor": doctor['name'],
+             "value": payments[i].value, "is_done": payments[i].is_done, "is_canceled": payments[i].is_canceled}
+        )
+
+    return JsonResponse(
+        {"payments": response})
+
+
+    '''
     try:
         payments = Payment.objects.all()
         #print(payments)
@@ -181,3 +220,4 @@ def get_all_payments_view(request):
             {"error": str(e), "message": False},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
+        '''

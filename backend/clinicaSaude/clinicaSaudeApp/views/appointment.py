@@ -148,6 +148,42 @@ def get_appointment_by_patient_id_view(request):
 
 @api_view(["GET"])
 def get_all_appointments_view(request):
+
+    appointments = Appointment.objects.all()
+    if not appointments:
+        return JsonResponse(
+            {"invalid": "Appointments do not exist", "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    response = []
+    doctorList = []
+    for p in appointments:
+        doctorList.append(p.slot.doctor_id)
+
+    doctors = auxDoctor.getDoctorsByIds(doctorList)
+
+    specialtyList = []
+
+    for d in doctors:
+        specialtyList.append(d['specialty_id'])
+
+    specialties = auxSpecialty.getSpecialtiesByIds(specialtyList)
+
+    for i in range(len(appointments)):
+        slot = appointments[i].slot
+        doctor = doctors[i]
+        specialty = specialties[i]
+        user = User.objects.filter(id=appointments[i].patient.id).first()
+        response.append(
+            {"id": appointments[i].id, "patient": user.user.username, "date": slot.date, "start_time": slot.start_time,
+             "specialty": specialty['name'], "doctor": doctor['name'],
+             "value": appointments[i].value, "is_finished": appointments[i].is_finished, "is_scheduled": appointments[i].is_scheduled}
+        )
+
+    return JsonResponse(
+        {"appointments": response})
+    '''
     try:
         appointments = Appointment.objects.all()
         if not appointments:
@@ -164,7 +200,7 @@ def get_all_appointments_view(request):
             {"error": str(e), "message": False},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
-
+    '''
 
 @api_view(["POST"])
 def finish_appointment_view(request):

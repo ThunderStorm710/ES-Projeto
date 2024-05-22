@@ -3,9 +3,9 @@ import boto3
 
 def compare_faces(path):
     flag = False
-    aws_access_key_id = "ASIA453LFNKUHD4X7ODB"
-    aws_secret_access_key = "xdwrTgechw6Gw25CPC6+kYR95U0HYCgO9Bm7lHqt"
-    aws_session_token = "IQoJb3JpZ2luX2VjENr//////////wEaCXVzLXdlc3QtMiJGMEQCIF6QbGuVTu4Y7dP9gKkyeAiNb/FC2SaEI/wttM9ZUSN8AiA5j+tZgmnzsxy2+qYb4Ke9Ll2OlYsH6RwxyIrcUwo4byq0AghTEAAaDDg4ODc0NjEwOTYwOCIMzT2pNv2cGdJUpo4WKpECZoG7ejm66q2tuGCklmJRQ2Dr4gXjjil8WrjbFWk+vFfcc3Z6lVcprlzqZocAA9uP8jd+HV3pgsycRscDrUSnLnqmyGmXszLcCSVG710/vGGK/CEeNVmxfB8nHJZYmVN4676hbkmdI2PCwt1g5g1sfcnnOHw+mYAA1SV2tXxE6C6Cm79H3+KtNpSi93vcMr6I8JKVb3iEM2544CHC7GV+rCJvaeyS1zduUkNOOesO5XN2bZHUtTYqRQSgCvTdV3NZjFoS2pmGR6YL0GO3bnCubuLjd/N4bRdWnhXf+6/7R31Xgz5jSHUW8onKN6i3IJ+BiObjjbJY7g0WS7bJD/l3FvCly+qAe9RTqKoIYG//N0lkMOqktbIGOp4B6zGI+6EcEB9JH0/4plyfZrRwK0rXNeIVHCNpAPVe4bahvRyMyJotpbx/IZ6mCKefj6Fgn6BEbOW8v8PWM8ex2tv+ByG+DXvsfCknp1bPELeOQXT6FtBl3zD2y8BhyNbVp2Ftk03SNeO3F1DoDjUshBwY22qPf7UcY+Iv3sWQqeudbCIq7oyNTaeWBQCWmlImyPXhDsI1Vg0N0/hruxU="
+    aws_access_key_id = "ASIA453LFNKUMKIW5K6C"
+    aws_secret_access_key = "wu7Ec5oFeDahhUyt2nOpoQxzj6rSQ0sFY/DbNzzG"
+    aws_session_token = "IQoJb3JpZ2luX2VjEOX//////////wEaCXVzLXdlc3QtMiJHMEUCIQC6bjbwvCFhwkv7WBvreR2YW4aqkfsGu9nPAZR0OloyZgIgY1KLPIJt+I4NVk3RzcyzlTHMVpS6/rTCIgi41WD82McqtAIIXhAAGgw4ODg3NDYxMDk2MDgiDAhfpJ8AfsCBqdVR/yqRAr/13fC313RLcKuhLibrjjsbWRcYcdksg1U+HcUzXHCACXFHVKogLW3pFyT4ZUeKA4nRkC6d/31G2yoP0wcShGQjQzSRSSt8kcsA2Mjntf5ulMjP2pLyJwyDRdd3DUFOJriwfZ/THDk9bCLJ5ITzn1n1pxRhmdPVYIHLodIDVDXy9h24LUdk2I+cfDA/XS0hayOMfB8kzsc4JQoptLdLgm1ZWLSy5xlc9VxE2BTDWarFEqOo8R6ATOUxn4gU77mtUEWmp+R2xzjjFxJe0YdMu2DxloE2RW8Q9Ssz4+mprh2zKAyoRsz2wXQo9J0be5p4o5vHaHb4DTt49bBOza5TAexFPD4HQh/3/6Z8RXVdr6k4LTDV3beyBjqdASZSpOaiBGYSy9R1UdXgc5gSmLk+bFGtaHWrLNGYaNd1cPWXt32EZp34IJDPi2DoLFuKRBiagmmL3jE3of64tV4Bq3WqgHlYsEcrouJWKlJ9V8Kk7yESp2upq11Tz4Z/B3c280QoOr805X6bNQdjJK94q1wpVte86WvNdNcSAJ1aHa+o5tGWmR64zEuizAMKiPqYGtr0kB5aDZcmUfc="
     s3 = boto3.resource('s3', region_name='us-east-1',
                         aws_access_key_id=aws_access_key_id,
                         aws_secret_access_key=aws_secret_access_key,

@@ -1,48 +1,71 @@
 /* Appointments.css */
 
 .appointments-page {
-  font-family: 'Arial', sans-serif;
-  padding: 20px;
-  background-color: #f8f8f8;
-  color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f4f8;
+    font-family: 'Arial', sans-serif;
+    color: #333;
 }
 
 .appointments-page h1, .appointments-page h2 {
-  color: #336699;
+    color: #336699;
+    margin-bottom: 20px;
 }
 
 .my-appointments, .book-appointment, .clinic-info {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .my-appointments ul, .clinic-info ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 .my-appointments li, .clinic-info li {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .my-appointments li:last-child, .clinic-info li:last-child {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .book-appointment button {
-  background-color: #89CFF0;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: center;
+    margin-top: 20px;
 }
 
 .book-appointment button:hover {
-  background-color: #71B0D4;
+    background-color: #218838;
+}
+
+.my-appointments li span, .clinic-info li span {
+    color: #555;
+    font-size: 14px;
+}
+
+.my-appointments li span.title, .clinic-info li span.title {
+    font-weight: bold;
+    color: #333;
 }

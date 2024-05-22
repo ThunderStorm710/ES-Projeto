@@ -10,7 +10,9 @@ import Payments from "./Payment/Payment";
 import CreateAppointment from "./Appointment/CreateAppointment";
 import AppointmentBegin from "./Appointment/AppointmentBegin";
 import CreatePayment from "./Payment/PaymentDetails";
-import AppointmentEnd from "./Appointment/AppointmentEnd";  // Supondo que o componente Home esteja em ./Home/Home
+import AppointmentEnd from "./Appointment/AppointmentEnd";
+import AllPayments from "./Payment/AllPayments";
+import AllAppointments from "./Appointment/AllAppointments";  // Supondo que o componente Home esteja em ./Home/Home
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -35,6 +37,8 @@ function App() {
         <Route path="/upload" element={isLoggedIn() ? <AppointmentBegin /> : <Navigate replace to="/" />} />
         <Route path="/payment-details" element={isLoggedIn() ? <CreatePayment /> : <Navigate replace to="/" />} />
         <Route path="/appointmentLIVE" element={isLoggedIn() ? <AppointmentEnd /> : <Navigate replace to="/" />} />
+        <Route path="/AllPayments" element={isLoggedIn() ? <AllPayments /> : <Navigate replace to="/" />} />
+        <Route path="/AllAppointments" element={isLoggedIn() ? <AllAppointments /> : <Navigate replace to="/" />} />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </Router>
