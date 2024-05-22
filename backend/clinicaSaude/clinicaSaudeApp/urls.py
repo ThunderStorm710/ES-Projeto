@@ -26,6 +26,7 @@ urlpatterns = [
     path('appointments/', views.create_appointment_view),
     #path('appointments/', views.get_all_appointments_view),
     path('appointment/<int:id>/', views.get_appointment_by_id_view),
+    path('appointment/finish/', views.finish_appointment_view),
     path('user/appointments/', views.get_appointment_by_patient_id_view),
 
     path('payments/', views.create_payment_view),

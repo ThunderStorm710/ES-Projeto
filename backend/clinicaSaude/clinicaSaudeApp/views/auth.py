@@ -111,7 +111,7 @@ def get_slots_by_doctor_view(request, id):
             {"invalid": "Incorrect field", "message": False},
             status=status.HTTP_400_BAD_REQUEST,
         )
-    data = auxDoctor.getDoctorsById(str(id))
+    data = auxDoctor.getDoctorById(str(id))
 
     if not data:
         return JsonResponse(
@@ -163,7 +163,7 @@ def get_date_slots_by_doctor_view(request, id):
             {"invalid": "Incorrect field", "message": False},
             status=status.HTTP_400_BAD_REQUEST,
         )
-    data = auxDoctor.getDoctorsById(str(id))
+    data = auxDoctor.getDoctorById(str(id))
 
     if not data:
         return JsonResponse(
@@ -211,7 +211,7 @@ def get_doctor_by_id_view(request, id):
     doctor = GetDoctorInfo(doctor).data
     '''
 
-    doctor = auxDoctor.getDoctorsById(str(id))
+    doctor = auxDoctor.getDoctorById(str(id))
     if doctor is None:
         return JsonResponse(
             {"invalid": "Doctor does not exist", "message": False},

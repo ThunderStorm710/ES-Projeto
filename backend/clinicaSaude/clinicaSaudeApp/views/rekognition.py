@@ -15,7 +15,7 @@ def index_face_view(request):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
-    doctor = auxDoctor.getDoctorsById(str(doctor_id))
+    doctor = auxDoctor.getDoctorById(str(doctor_id))
     if doctor is None:
         return JsonResponse(
             {"invalid": "Doctor does not exist", "message": False},

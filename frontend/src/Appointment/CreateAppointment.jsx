@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import './CreateAppointment.css';
 import API from "../api";
@@ -14,6 +15,8 @@ function CreateAppointment() {
     const [specialties, setSpecialties] = useState([]);
     const [doctors, setDoctors] = useState([]);
     const [timeSlots, setTimeSlots] = useState([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchSpecialties() {
@@ -47,8 +50,7 @@ function CreateAppointment() {
         }
 
         fetchDoctors();
-    }, [formData.specialty])
-
+    }, [formData.specialty]);
 
     useEffect(() => {
         async function fetchTimeSlots() {
@@ -100,9 +102,9 @@ function CreateAppointment() {
         try {
             const { doctor, date, timeSlot } = formData;
             const response = await API.createAppointment(-1, doctor, timeSlot, 50);
-            console.log(response.data, "_---");
             alert('Appointment created successfully!');
-            console.log(response.data);
+            // Redirecionar para a página de pagamento e passar o objeto appointment
+            navigate('/');
         } catch (error) {
             console.error('Error creating appointment:', error);
             alert('Failed to create appointment.');

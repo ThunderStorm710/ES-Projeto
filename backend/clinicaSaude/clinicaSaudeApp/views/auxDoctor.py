@@ -32,7 +32,7 @@ def insertDoctor(item):
     # Obtendo a tabela
     table_specialties = dynamodb.Table(table_name_specialties)
     SpecialtyId = auxSpecialty.getSpecialtiesById(item['specialty'])
-    print(SpecialtyId)
+    #print(SpecialtyId)
     if SpecialtyId is None:
         return -1, "Specialty not found"
 
@@ -47,7 +47,7 @@ def insertDoctor(item):
     return id, item
 
 
-def getDoctorsById(id):
+def getDoctorById(id):
     if id is None or id == '':
         return -1, "Invalid field"
 
@@ -65,6 +65,34 @@ def getDoctorsById(id):
     response = table.get_item(Key={'DoctorId': id})  # Ajuste na chave
     item = response.get('Item')
     return item
+
+
+def getDoctorsByIds(list_ids):
+    if list_ids is None or type(list_ids) != list or list_ids == []:
+        return -1, "Invalid field"
+
+
+    # Criando o cliente DynamoDB
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')  # Substitua pela sua região
+
+    # Nome da tabela
+    table_name = 'Doctors'  # Mudança para a tabela Doctors
+
+    # Obtendo a tabela
+    table = dynamodb.Table(table_name)
+
+    auxDict = {}
+    doctors_list = []
+    for i in list_ids:
+        if str(i) not in auxDict:
+            response = table.get_item(Key={'DoctorId': str(i)})
+            item = response.get('Item')
+            doctors_list.append(item)
+            auxDict[str(i)] = item
+        else:
+            doctors_list.append(auxDict[str(i)])
+
+    return doctors_list
 
 
 def getAllDoctors():
@@ -95,4 +123,4 @@ if __name__ == '__main__':
         "room": "A"
     }))
     print(getAllDoctors())
-    print(getDoctorsById("1"))
+    print(getDoctorById("1"))

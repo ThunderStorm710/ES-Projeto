@@ -44,7 +44,7 @@ def create_appointment_view(request):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
-    doctor = auxDoctor.getDoctorsById(str(doctor_id))
+    doctor = auxDoctor.getDoctorById(str(doctor_id))
     if doctor is None:
         return JsonResponse(
             {"invalid": "Doctor does not exist", "message": False},
@@ -88,6 +88,7 @@ def create_appointment_view(request):
 
     state_machine({"appointment_id": appointment.id, "payment_id": payment.id})
 
+    print({"id": appointment.id, "message": True})
     return JsonResponse({"id": appointment.id, "message": True})
 
 
@@ -128,7 +129,7 @@ def get_appointment_by_patient_id_view(request):
     response = []
     for p in appointment:
         slot = p.slot
-        doctor = auxDoctor.getDoctorsById(slot.doctor_id)
+        doctor = auxDoctor.getDoctorById(slot.doctor_id)
         print(doctor, "------------_")
         specialty = auxSpecialty.getSpecialtiesById(doctor['specialty_id'])
         response.append(
@@ -166,12 +167,41 @@ def get_all_appointments_view(request):
 
 
 @api_view(["POST"])
+def finish_appointment_view(request):
+    if "appointment_id" not in request.data:
+        return JsonResponse(
+            {"invalid": "Missing parameters", "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    appointment_id = request.data.get("appointment_id")
+    if "patient_id" not in request.data or request.data.get("patient_id") == -1:
+        user = User.objects.filter(user__username=request.user).first()
+        patient_id = user.id
+    else:
+        patient_id = request.data.get("patient_id")
+
+
+    appointments = Appointment.objects.filter(id=appointment_id, patient_id=patient_id)
+    if not appointments:
+        return JsonResponse(
+            {"error": "No appointments found", "message": False},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+    appointment = appointments.first()
+    appointment.is_finished = True
+    appointment.save()
+    return JsonResponse(
+        {"message": "Appointment finished", "id": appointment.id, "is_finished": appointment.is_finished}
+    )
+
+
+@api_view(["POST"])
 def upload_image(request):
     if request.method == 'POST' and 'image' in request.FILES:
         image = request.FILES['image']
         save_path = os.path.join(settings.MEDIA_ROOT, image.name)
         path = default_storage.save(save_path, image)
         # search_faces_by_image(image.name)
-        compare_faces(image.name)
+        compare_faces(save_path)
         return JsonResponse({'url': f"{settings.MEDIA_URL}{image.name}"})
     return JsonResponse({'error': 'Invalid request or missing image file'}, status=400)

@@ -51,6 +51,33 @@ def getSpecialtiesById(id):
     return item
 
 
+def getSpecialtiesByIds(list_ids):
+    if list_ids is None or type(list_ids) != list or list_ids == []:
+        return -1, "Invalid field"
+
+    # Criando o cliente DynamoDB
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')  # Substitua pela sua região
+
+    # Nome da tabela
+    table_name = 'Specialty'
+
+    # Obtendo a tabela
+    table = dynamodb.Table(table_name)
+
+    auxDict = {}
+    specialties_list = []
+    for i in list_ids:
+        if str(i) not in auxDict:
+            response = table.get_item(Key={'SpecialtyId': str(i)})
+            item = response.get('Item')
+            specialties_list.append(item)
+            auxDict[str(i)] = item
+        else:
+            specialties_list.append(auxDict[str(i)])
+
+    return specialties_list
+
+
 def getAllSpecialties():
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')  # Substitua pela sua região
 

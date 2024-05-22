@@ -1,25 +1,47 @@
-/* Appointments.css or Payments.css */
-
-.page {
-  width: 90%;
-  margin: 20px auto;
+.payments-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+.payments-page h1 {
+    margin-bottom: 20px;
+    color: #333;
 }
 
-table, th, td {
-  border: 1px solid #ddd;
+.payments-table {
+    width: 100%;
+    max-width: 1000px;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
-th, td {
-  padding: 8px;
-  text-align: left;
+.payments-table th, .payments-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
 }
 
-th {
-  background-color: #f4f4f4;
+.payments-table th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.payments-table tr {
+    transition: background-color 0.3s ease;
+}
+
+.payments-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+.payments-table td {
+    color: #555;
 }

@@ -1,12 +1,11 @@
 import boto3
 
 
-def compare_faces(sourceFile):
+def compare_faces(path):
     flag = False
-    aws_access_key_id = "ASIA453LFNKUHYYCCUVK"
-    aws_secret_access_key = "eCDvqHHmylCzfjF4NG/BdV+Nf8C7r74bA4Kc5Y6m"
-    aws_session_token = "IQoJb3JpZ2luX2VjEL7//////////wEaCXVzLXdlc3QtMiJIMEYCIQDFMeiQRWEg7YIcVlj013NIS2EaR46eZmh27UtKrpC/vgIhANeQ8UdwBjtOf3HOCI5xnQTcfaD2f3ZSmOiM+o+pa2G2KrQCCDcQABoMODg4NzQ2MTA5NjA4IgwrkNnqZKdOZ2AhuBsqkQJv5Xq+PHU1MZysIHXv4MVLofh4b2r5bX2TdFFGTK888+7Bx0JK0aXN+xImTFsxS8Ug6yJfYCw5UakXVqDbQlGiGoPlAktV64z7UaT+GTqokAIXpQykd+KM+u4d/AEQ+AZfwRnu3uYoNEdTDyuiIWgcqXF/KDzEj6vSLQMJ9Yh4db2SG+Mq7vWqy7FnEv/cj5y1bzBuFh3q36512nj7C8RtzVyOsKDRpSz1WgbeA9+uPc3XpTxJ/s+5O04O+8xLbcl+j7nWvy5sSsB7MwIsZLf0jIX4vJiyTJ8zRmHtUX1ns+yAUSGl4si06jqEIQOM8rfuXGIx2bB1iy8pys5c0aVHh/IvtP+wtnEQ1GQa352VAogws46vsgY6nAHjGC+j8bP+J2hXBZ4sSreo0+9xCZkY50Z7QQe7h11xHzb32QKxr7P3bu8/ObCc6KOrwoRTZ47b0T8lkp+SSDpE8hu7GM8lrNcNaHc1nWTgcX19qHnzfiPAg1BIE8F1nKHV2obYTEpmeRoQka8H2+zPMAJL1Xb/gEVCraAPbwvHqBI4n2BQRWRbykvqNPSWNrZcu3CRB7S77bXvocM="
-
+    aws_access_key_id = "ASIA453LFNKUHD4X7ODB"
+    aws_secret_access_key = "xdwrTgechw6Gw25CPC6+kYR95U0HYCgO9Bm7lHqt"
+    aws_session_token = "IQoJb3JpZ2luX2VjENr//////////wEaCXVzLXdlc3QtMiJGMEQCIF6QbGuVTu4Y7dP9gKkyeAiNb/FC2SaEI/wttM9ZUSN8AiA5j+tZgmnzsxy2+qYb4Ke9Ll2OlYsH6RwxyIrcUwo4byq0AghTEAAaDDg4ODc0NjEwOTYwOCIMzT2pNv2cGdJUpo4WKpECZoG7ejm66q2tuGCklmJRQ2Dr4gXjjil8WrjbFWk+vFfcc3Z6lVcprlzqZocAA9uP8jd+HV3pgsycRscDrUSnLnqmyGmXszLcCSVG710/vGGK/CEeNVmxfB8nHJZYmVN4676hbkmdI2PCwt1g5g1sfcnnOHw+mYAA1SV2tXxE6C6Cm79H3+KtNpSi93vcMr6I8JKVb3iEM2544CHC7GV+rCJvaeyS1zduUkNOOesO5XN2bZHUtTYqRQSgCvTdV3NZjFoS2pmGR6YL0GO3bnCubuLjd/N4bRdWnhXf+6/7R31Xgz5jSHUW8onKN6i3IJ+BiObjjbJY7g0WS7bJD/l3FvCly+qAe9RTqKoIYG//N0lkMOqktbIGOp4B6zGI+6EcEB9JH0/4plyfZrRwK0rXNeIVHCNpAPVe4bahvRyMyJotpbx/IZ6mCKefj6Fgn6BEbOW8v8PWM8ex2tv+ByG+DXvsfCknp1bPELeOQXT6FtBl3zD2y8BhyNbVp2Ftk03SNeO3F1DoDjUshBwY22qPf7UcY+Iv3sWQqeudbCIq7oyNTaeWBQCWmlImyPXhDsI1Vg0N0/hruxU="
     s3 = boto3.resource('s3', region_name='us-east-1',
                         aws_access_key_id=aws_access_key_id,
                         aws_secret_access_key=aws_secret_access_key,
@@ -17,12 +16,13 @@ def compare_faces(sourceFile):
                           aws_secret_access_key=aws_secret_access_key,
                           aws_session_token=aws_session_token)
 
-    imageSource = open("C://Users/pasce/OneDrive/Ambiente de Trabalho/ES-Projeto/backend/clinicaSaude/media/10.jpeg", 'rb')
+    #imageSource = open("C://Users/pasce/OneDrive/Ambiente de Trabalho/ES-Projeto/backend/clinicaSaude/media/10.jpeg", 'rb')
+    imageSource = open(path, 'rb')
+    imagem = imageSource.read()
 
     my_bucket = s3.Bucket('clinic-clients-images')
 
-    imagem = imageSource.read()
-    ''''''
+
     for my_bucket_object in my_bucket.objects.all():
         print(my_bucket_object.key)
         response = client.compare_faces(SimilarityThreshold=90,

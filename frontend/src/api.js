@@ -130,13 +130,21 @@ class API {
 
     }
 
+    static finishAppointment(appointment_id, patient_id) {
+        return this.makeJSONRequest("appointment/finish/", "POST", {
+            appointment_id: appointment_id,
+            patient_id: patient_id,
+        });
+
+    }
+
     static getPayments() {
         return this.makeJSONRequest("payments/", "GET");
 
     }
 
     static getPaymentByID(id) {
-        return this.makeJSONRequest(`payments/${id}`, "GET");
+        return this.makeJSONRequest(`payment/${id}`, "GET");
 
     }
 

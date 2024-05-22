@@ -9,15 +9,15 @@ function Dashboard() {
     <div className="dashboard">
       <div className="card" onClick={() => navigate('/newAppointment')}>
         <h3>Create Appointment</h3>
-        <p>Agende uma nova consulta médica.</p>
+        <p>Schedule a new medical appointment.</p>
       </div>
       <div className="card" onClick={() => navigate('/appointment')}>
           <h3>My Appointments</h3>
-          <p>Veja todas as suas consultas marcadas.</p>
+          <p>See all your scheduled appointments.</p>
       </div>
       <div className="card" onClick={() => navigate('/payments')}>
         <h3>My Payments</h3>
-        <p>Consulte todos os seus pagamentos.</p>
+        <p>Consult all your payments.</p>
       </div>
     </div>
   );

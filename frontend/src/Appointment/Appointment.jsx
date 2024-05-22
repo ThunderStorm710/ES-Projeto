@@ -21,7 +21,7 @@ function Appointment() {
 
     const getStatus = (appointment) => {
         if (!appointment.is_scheduled) {
-            return "Cancelado";
+            return "Cancelled";
         } else if (!appointment.is_finished && appointment.is_scheduled) {
             return "Appointment scheduled";
         } else if (appointment.is_finished) {
