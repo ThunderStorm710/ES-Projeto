@@ -16,7 +16,7 @@ class API {
         return new URL(path, "http://localhost:8000/api/");
     }
 
-    static makeRequest(
+    static async makeRequest(
         path,
         method = "GET",
         body = undefined,
@@ -38,7 +38,12 @@ class API {
             body: method === "GET" ? undefined : body,
         };
 
-        return fetch(pathURL, options);
+        const response = await fetch(pathURL, options);
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Something went wrong');
+        }
+        return response.json();
     }
 
     static makeJSONRequest(
@@ -54,9 +59,7 @@ class API {
             body = JSON.stringify(body);
         }
 
-        return this.makeRequest(path, method, body, params, headers).then(
-            (response) => response.json()
-        );
+        return this.makeRequest(path, method, body, params, headers);
     }
 
     static searchFace(appointmentId, title, content, image) {

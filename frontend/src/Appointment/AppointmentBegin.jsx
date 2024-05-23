@@ -27,9 +27,10 @@ function AppointmentBegin() {
         e.preventDefault();
         try {
             const data = await API.searchFace(appointmentId, '1', '2', image); // Supondo que este método existe na API
-            if (data.match === false) {
+            console.log(data); // Verifique se os dados estão corretos
+            if (data.dados.match === false) {
                 alert('Image not recognized!');
-            } else if (data.match === true){
+            } else if (data.dados.match === true){
                 alert('Image uploaded successfully!');
                 navigate('/appointmentLIVE', { state: { appointmentId } });
             }

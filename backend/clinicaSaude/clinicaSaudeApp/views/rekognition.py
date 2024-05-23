@@ -35,7 +35,6 @@ def index_face_view(request):
     return JsonResponse({'error': 'Invalid request or missing image file'}, status=400)
 
 
-
 # @login_required()
 @api_view(["POST"])
 def search_face_view(request):
@@ -63,10 +62,10 @@ def search_face_view(request):
 
         if str(result) == str(patient_id):
             print("IGUAIS")
-            return JsonResponse({'match': True, "mensagem": "Encontrado"}, status=200)
+            return JsonResponse({"dados": {'match': True, "mensagem": "Encontrado"}}, status=200)
         else:
             print("DIFERENTES")
-            return JsonResponse({'match': False, "mensagem": "Não encontrado"}, status=200)
+            return JsonResponse({"dados": {'match': False, "mensagem": "Não encontrado"}}, status=200)
 
     return JsonResponse({'error': 'Invalid request or missing image file', 'match': False}, status=400)
 
