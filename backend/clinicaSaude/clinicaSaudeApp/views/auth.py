@@ -13,6 +13,8 @@ def register_view(request):
     password = request.data.get("password")
     email = request.data.get("email")
 
+    print(username, password, email)
+
     user_already_exists = AuthUser.objects.filter(username=username).exists()
 
     if user_already_exists:

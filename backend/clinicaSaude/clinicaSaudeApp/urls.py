@@ -44,8 +44,8 @@ urlpatterns = [
 
 
     path('upload/', views.upload_image, name='image-upload'),
-    path('search-face/', views.search_face_view, name='image-upload'),
-    path('index-face/', views.search_face_view, name='image-upload'),
+    path('searchFace/', views.search_face_view, name='search-face'),
+    path('indexFace/', views.index_face_view, name='index-face'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 from django.urls import path
 

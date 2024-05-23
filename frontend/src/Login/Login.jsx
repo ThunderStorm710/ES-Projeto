@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './Login.css';
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import isLoggedIn from "../utils";
 import API from "../api";
+import axios from 'axios'; // Importar axios
 
 function Login() {
     const [isLoginView, setIsLoginView] = useState(true);
@@ -24,7 +25,7 @@ function Login() {
     }, [navigate]); // Inclua dependências no useEffect para evitar comportamentos inesperados.
 
     function handleChange(event) {
-        const { name, value } = event.target; // Extração das propriedades do evento.
+        const {name, value} = event.target; // Extração das propriedades do evento.
         setInputs(inputs => ({
             ...inputs,
             [name]: value,
@@ -64,12 +65,35 @@ function Login() {
                     formData.append('image', image); // Adiciona a imagem ao FormData
                 }
 
-                const data = await API.register(formData); // Ajusta a chamada da API para enviar o FormData
-
+                const data = await API.register(inputs.username, inputs.password, inputs.repeat_password, inputs.email);
                 if (data.message) {
+                    console.log(data.id);
                     await API.login(inputs.username, inputs.password);
                     if (isLoggedIn()) {
+                        alert('Signed up successfully!');
                         navigate("/");
+                        // Nova lógica para fazer upload da imagem
+                        const url = 'http://localhost:8000/api/indexFace/';
+                        const uploadData = new FormData();
+                        uploadData.append('patient_id', data.id);
+                        uploadData.append('title', 'Maria'); // Substitua conforme necessário
+                        uploadData.append('content', 'Maria'); // Substitua conforme necessário
+                        if (image) {
+                            uploadData.append('image', image); // Adiciona a imagem ao FormData
+                        }
+
+                        try {
+                            const res = await axios.post(url, uploadData, {
+                                headers: {
+                                    'content-type': 'multipart/form-data'
+                                }
+                            });
+                            console.log(res.data);
+                            alert('Image uploaded successfully!');
+                        } catch (err) {
+                            console.log(err);
+                            alert('Failed to upload image.');
+                        }
                     } else {
                         setErrorRegister("User already exists");
                     }
@@ -88,15 +112,20 @@ function Login() {
         <div className="login-container">
             <h1>{isLoginView ? 'Login' : 'Sign up'}</h1>
             <form onSubmit={isLoginView ? handleLogin : handleRegister}>
-                <input type="text" placeholder="Username" name="username" value={inputs.username} onChange={handleChange} />
+                <input type="text" placeholder="Username" name="username" value={inputs.username}
+                       onChange={handleChange}/>
                 {!isLoginView && (
                     <>
-                        <input type="email" placeholder="Email" name="email" value={inputs.email} onChange={handleChange} />
-                        <input type="password" placeholder="Repeat Password" name="repeat_password" value={inputs.repeat_password} onChange={handleChange} />
-                        <input type="file" name="image" accept="image/*" onChange={handleImageChange} /> {/* Campo de upload de imagem */}
+                        <input type="email" placeholder="Email" name="email" value={inputs.email}
+                               onChange={handleChange}/>
+                        <input type="password" placeholder="Repeat Password" name="repeat_password"
+                               value={inputs.repeat_password} onChange={handleChange}/>
+                        <input type="file" name="image" accept="image/*"
+                               onChange={handleImageChange}/> {/* Campo de upload de imagem */}
                     </>
                 )}
-                <input type="password" placeholder="Password" name="password" value={inputs.password} onChange={handleChange} />
+                <input type="password" placeholder="Password" name="password" value={inputs.password}
+                       onChange={handleChange}/>
                 <button type="submit">
                     {isLoginView ? 'Login' : 'Sign up'}
                 </button>

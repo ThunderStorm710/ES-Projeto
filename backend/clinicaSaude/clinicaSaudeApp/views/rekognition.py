@@ -16,7 +16,9 @@ from clinicaSaudeApp.models import AuthUser, User, Doctor, Appointment, TimeSlot
 # @login_required()
 @api_view(["POST"])
 def index_face_view(request):
-    if 'patient_id' not in request.data or request.data.get('patient_id') == -1:
+    user_id = request.POST.get('userId')
+    print(user_id)
+    if 'patient_id' not in request.POST or request.POST.get('patient_id') == -1:
         user = User.objects.filter(user__username=request.user).first()
         if not user:
             return JsonResponse({'error': 'User not found'}, status=400)
@@ -35,28 +37,38 @@ def index_face_view(request):
 
 
 # @login_required()
-@api_view(["GET"])
+@api_view(["POST"])
 def search_face_view(request):
-    if 'patient_id' not in request.data or request.data.get('patient_id') == -1:
+    print(request.POST)
+    print(request.data)
+    print(request.FILES)
+
+    if 'patient_id' not in request.POST or request.POST.get('patient_id') == -1:
         user = User.objects.filter(user__username=request.user).first()
         if not user:
+            print("NOT FOUND")
             return JsonResponse({'error': 'User not found'}, status=400)
         patient_id = user.id
     else:
         patient_id = request.data.get('patient_id')
+
+    print(patient_id)
 
     if request.method == 'POST' and 'image' in request.FILES:
         image = request.FILES['image']
         save_path = os.path.join(settings.MEDIA_ROOT, image.name)
         path = default_storage.save(save_path, image)
         result = search_faces_by_image(save_path)
+        print(result)
 
-        if result == patient_id:
-            return JsonResponse({'url': f"{settings.MEDIA_URL}{image.name}", 'match': True})
+        if str(result) == str(patient_id):
+            print("IGUAIS")
+            return JsonResponse({'match': True, "mensagem": "Encontrado"}, status=200)
         else:
-            return JsonResponse({'url': f"{settings.MEDIA_URL}{image.name}", 'match': False})
+            print("DIFERENTES")
+            return JsonResponse({'match': False, "mensagem": "Não encontrado"}, status=200)
 
-    return JsonResponse({'error': 'Invalid request or missing image file'}, status=400)
+    return JsonResponse({'error': 'Invalid request or missing image file', 'match': False}, status=400)
 
 
 @api_view(["GET"])

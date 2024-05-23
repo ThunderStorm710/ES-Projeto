@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import API from '../api';
 import './Appointment.css';
 import '../static/Loading.css';
@@ -33,6 +33,7 @@ function Appointment() {
             return "Appointment concluded";
         }
     };
+
     if (loading) {
         return (
             <div className="loading-container">
@@ -40,13 +41,13 @@ function Appointment() {
             </div>
         );
     }
+
     return (
         <div className="appointments-page">
             <h1>My Appointments</h1>
-            <table>
+            <table className="appointments-table">
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Doctor</th>
                     <th>Specialty</th>
                     <th>Date</th>
@@ -57,7 +58,6 @@ function Appointment() {
                 <tbody>
                 {appointments.map(appointment => (
                     <tr key={appointment.id}>
-                        <td>{appointment.id}</td>
                         <td>Dr. {appointment.doctor}</td>
                         <td>{appointment.specialty}</td>
                         <td>{appointment.date}</td>

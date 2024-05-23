@@ -103,6 +103,7 @@ def get_payment_by_id_view(request, id):
 
 @api_view(["GET"])
 def get_payment_by_patient_id_view(request):
+    print(request.data)
     if "patient_id" not in request.data or request.data.get("patient_id") == -1:
         user = User.objects.filter(user__username=request.user).first()
         patient_id = user.id

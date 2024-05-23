@@ -13,8 +13,6 @@ class API {
     }
 
     static makePathURL(path) {
-        console.log(path);
-        console.log(new URL(path, "http://localhost:8000/api/"));
         return new URL(path, "http://localhost:8000/api/");
     }
 
@@ -23,7 +21,7 @@ class API {
         method = "GET",
         body = undefined,
         params = undefined,
-        headers = undefined
+        headers = {}
     ) {
         const searchParams = new URLSearchParams(params);
         const pathURL = this.makePathURL(path);
@@ -31,11 +29,16 @@ class API {
             pathURL.searchParams.set(key, value)
         );
 
-        return fetch(pathURL, {
+        const options = {
             method: method,
-            headers: { ...ACCEPT_JSON, ...headers, ...API.getBearerToken() },
-            body: method === "GET" ? undefined : JSON.stringify(body),
-        });
+            headers: {
+                ...headers,
+                ...API.getBearerToken(),
+            },
+            body: method === "GET" ? undefined : body,
+        };
+
+        return fetch(pathURL, options);
     }
 
     static makeJSONRequest(
@@ -43,12 +46,43 @@ class API {
         method = "GET",
         body = undefined,
         params = undefined,
-        headers = undefined
+        headers = {}
     ) {
+        // Se o corpo for uma instância de FormData, não definimos o cabeçalho 'content-type'
+        if (!(body instanceof FormData)) {
+            headers['Content-Type'] = 'application/json';
+            body = JSON.stringify(body);
+        }
+
         return this.makeRequest(path, method, body, params, headers).then(
             (response) => response.json()
         );
     }
+
+    static searchFace(appointmentId, title, content, image) {
+        const formData = new FormData();
+        formData.append('appointmentId', appointmentId);
+        formData.append('title', title);
+        formData.append('content', content);
+        if (image) {
+            formData.append('image', image);
+        }
+
+        return this.makeRequest("searchFace/", "POST", formData);
+    }
+
+        static indexFace(appointmentId, title, content, image) {
+        const formData = new FormData();
+        formData.append('appointmentId', appointmentId);
+        formData.append('title', title);
+        formData.append('content', content);
+        if (image) {
+            formData.append('image', image);
+        }
+
+        return this.makeRequest("indexFace/", "POST", formData);
+    }
+
 
 
     static register(username, password, repeat_password, email) {
@@ -89,6 +123,7 @@ class API {
         });
 
     }
+
     static getAppointments() {
         return this.makeJSONRequest("all-appointments/", "GET");
 
@@ -98,6 +133,7 @@ class API {
         return this.makeJSONRequest(`appointments/${id}`, "GET");
 
     }
+
     static getAppointmentByPatientID() {
         return this.makeJSONRequest(`user/appointments/`, "GET");
 
@@ -116,6 +152,7 @@ class API {
         });
 
     }
+
     static getSpecialty() {
         return this.makeJSONRequest("specialty/", "GET");
 
@@ -187,6 +224,7 @@ class API {
     static getAllDoctors() {
         return this.makeJSONRequest(`doctors/`);
     }
+
     static getDoctor(doctor_id) {
         return this.makeJSONRequest(`doctors/${doctor_id}/`);
     }
@@ -198,6 +236,7 @@ class API {
     static getTimeSlotsByDoctorId(doctor_id) {
         return this.makeJSONRequest(`doctors/${doctor_id}/slots/`);
     }
+
     static getDateSlotsByDoctorId(doctor_id) {
         return this.makeJSONRequest(`doctors/${doctor_id}/slots/day/`);
     }
