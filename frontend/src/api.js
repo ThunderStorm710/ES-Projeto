@@ -13,7 +13,7 @@ class API {
     }
 
     static makePathURL(path) {
-        return new URL(path, "http://clinicaenv.eba-3k2xhunz.us-east-1.elasticbeanstalk.com");
+        return new URL(path, "http://clinicaenv.eba-3k2xhunz.us-east-1.elasticbeanstalk.com/api/");
     }
 
     static async makeRequest(
