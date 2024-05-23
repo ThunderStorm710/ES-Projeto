@@ -45,7 +45,7 @@ function Appointment() {
     const getStatus = (appointment) => {
         if (!appointment.is_scheduled) {
             return "Awaiting payment";
-        } else if (appointment.is_scheduled) {
+        } else if (!appointment.is_finished && appointment.is_scheduled) {
             return "Appointment scheduled";
         } else if (appointment.is_finished) {
             return "Appointment concluded";
