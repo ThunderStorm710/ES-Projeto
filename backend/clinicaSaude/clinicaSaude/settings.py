@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-d!jxv*@d582%c540gxokmq+8v6_cqghsm3=1$!&=r)7ju7ucsp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["django-env.eba-bcpqmhnk.us-east-1.elasticbeanstalk.com", '127.0.0.1', "localhost"]
+ALLOWED_HOSTS = ["clinicaenv.eba-3k2xhunz.us-east-1.elasticbeanstalk.com", '127.0.0.1', "localhost"]
 
 CORS_ALLOW_ALL_ORIGINS = True
 
