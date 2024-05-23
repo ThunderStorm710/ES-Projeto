@@ -25,7 +25,7 @@ function CreateAppointment() {
 
     const navigate = useNavigate();
 
-        const userLoggedIn = isLoggedIn();
+    const userLoggedIn = isLoggedIn();
 
     const onLogout = async () => {
         try {
@@ -85,7 +85,6 @@ function CreateAppointment() {
                 setLoadingTimeSlots(true);
                 try {
                     const data = await API.getTimeSlotsByDoctorId(formData.doctor);
-                    console.log("DADOS", data);
                     setTimeSlots(data.slots || []);
                     setLoadingTimeSlots(false);
                 } catch (error) {

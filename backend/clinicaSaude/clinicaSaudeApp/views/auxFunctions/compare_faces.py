@@ -3,9 +3,9 @@ import boto3
 
 def compare_faces(path):
     flag = False
-    aws_access_key_id = "ASIA453LFNKUOFWMIAUT"
-    aws_secret_access_key = "gYPxZggexiInjADzUaqVl79EuwNCsMjENUWS/oiv"
-    aws_session_token = "IQoJb3JpZ2luX2VjEPv//////////wEaCXVzLXdlc3QtMiJGMEQCICOt3HmfompnPtsM0CLlxOZqrWpUAcKKqIigfXVYk3vPAiAkWLpN3GQ9mtYPQsOJIi69d5jopfQQA0vHvL/RfZoPzyq0Agh0EAAaDDg4ODc0NjEwOTYwOCIMBjmkTz6NugYgZMcTKpECOS8jL2fwGM4YWUr8xrtMEB+X5eB29i9stETUiQ3Equp/d4Ha+43/R2L2lLaQhgxBwkeLCnFonFRJ+SAb5+46wOmKZBz4qEJOOqdewokNo7nDE19YRn5WCPYjon/QMAuKJaa6skTIEI8ezWTAcWibs5y1AOmdA88Z0L4zUMIT79pnQTLQnWKcaL+zd3TL78JSX+3HBqYhGE+oVF3Kg5hkbv8DezXlitBqgBotjyh0xTr72Mc+o5wEylTlZM8xhw6tUZJnO4PdInx1w6WSV3k3gT27/q0g+A3t7Gz2rRQuj/ZJTeDU9Rka/v5onnY3iW3p5+HuTz12p7n1keYHxVObMfHhhw6n/Rv8UZz4zW0uExSZMLXIvLIGOp4BKu+1jcCBirp77hRirB3/f7N1zyy4PdaxB5JQ1zFdb+5grgVnZNNndRL/FuizvAWo3y78xklhK7t4AdNm09J25n2gKOcGL3RpmbwX/fMz53W4k03RYEI9R6hqcaDvmVYvjjOs6Ge4KFErPDtCACBxSq5MAwh7lKtjEHKH2YyLWEcrmqeaRpDwFq+eK398KxfOPX5nFcIvj5/K5ZB8W/A="
+    aws_access_key_id = "ASIA453LFNKULJBHV47W"
+    aws_secret_access_key = "n6o5I7ftVD+HrmqzGZ2CQKaqOZS+mkdNvuvmtN1j"
+    aws_session_token = "IQoJb3JpZ2luX2VjEAEaCXVzLXdlc3QtMiJGMEQCIF5M8A5YRy3wUNgitCGRTEhsTT8IMTZWSQefum209lPOAiBRlOKYcIJTWxDMGeUKHqji0L0PRUNuv9p769n96z0E+iq0Agh6EAAaDDg4ODc0NjEwOTYwOCIMXmqyWDHUXxRCjjIrKpECV6CU6k4MDNNqz/HJxiN2ItCdaSJHpV1/gp1RJvuFO633xm8nTx49niz/m7ewKqT17GGe5L5tPQ6lhOsGaoF8QAjb2VQ4NurpFw/PqBP0FVXsRBpsvQ75e4sI0ib6L6Qsf5C5ido2Z3ld4RlhS/B7xI+mfH0vgUDyCRVl3EHrAESS3evPMhR/UIvAZLvqblnduWjmNVj+EERdnyIpk65phJOFUBVkGNYBla8oH+gcpOaXvx36PDS3B7597cisTO7rGWVmlJ4B9Itx45zYHddcORwyYVJAOxqRfJDnJhQBjI+0Czgftx29s9VDjRufkXnRCk4Nc+1RoZPfp4Tf0VDNMp1qISAMLaX1m2kJeB9yoqK9ML/uvbIGOp4B9/a5kzdDdGFV4X/rRkCaJN0L55JfHtEkpnIpQIsdjBfJGzNiR1DJqLK+ALNEGrGv9jlMBJ/84Lg9nmflvwJ0rU+9vxZBHvv5kuQ8+qfRvgwh/UaAjCdTYkOgeS94/ht39JOT0v5fAF6pCBguYf/0dzucDDdRZkKvZlruJyQKCQk1pQzyS1QPa4cpvSyvRGn5kcmDgd6/2Daze52OGdo="
 
     s3 = boto3.resource('s3', region_name='us-east-1',
                         aws_access_key_id=aws_access_key_id,

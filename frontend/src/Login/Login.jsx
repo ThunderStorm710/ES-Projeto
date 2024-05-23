@@ -47,7 +47,7 @@ function Login() {
                 setErrorLogin("Invalid credentials");
             }
         } catch (error) {
-            setErrorLogin("Login failed: " + error.message);
+                setErrorLogin("Invalid credentials");
         }
     };
 
@@ -62,7 +62,7 @@ function Login() {
                 formData.append('repeat_password', inputs.repeat_password);
                 formData.append('email', inputs.email);
                 if (image) {
-                    formData.append('image', image); // Adiciona a imagem ao FormData
+                    formData.append('image', image);
                 }
 
                 const data = await API.register(inputs.username, inputs.password, inputs.repeat_password, inputs.email);
@@ -72,14 +72,13 @@ function Login() {
                     if (isLoggedIn()) {
                         alert('Signed up successfully!');
                         navigate("/");
-                        // Nova lógica para fazer upload da imagem
                         const url = 'http://localhost:8000/api/indexFace/';
                         const uploadData = new FormData();
                         uploadData.append('patient_id', data.id);
-                        uploadData.append('title', 'Maria'); // Substitua conforme necessário
-                        uploadData.append('content', 'Maria'); // Substitua conforme necessário
+                        uploadData.append('title', '.');
+                        uploadData.append('content', '.');
                         if (image) {
-                            uploadData.append('image', image); // Adiciona a imagem ao FormData
+                            uploadData.append('image', image);
                         }
 
                         try {
@@ -98,10 +97,10 @@ function Login() {
                         setErrorRegister("User already exists");
                     }
                 } else {
-                    setErrorRegister("Registration failed: " + data.message);
+                        setErrorRegister("User already exists");
                 }
             } catch (error) {
-                setErrorRegister("Registration error: " + error.message);
+                setErrorRegister("Registration error");
             }
         } else {
             setErrorRegister("Passwords don't match");
@@ -133,8 +132,8 @@ function Login() {
                     {isLoginView ? 'Create an account' : 'Already have an account'}
                 </button>
             </form>
-            {errorLogin && <div>{errorLogin}</div>}
-            {errorRegister && <div>{errorRegister}</div>}
+            {errorLogin && <div className="error-message">{errorLogin}</div>}
+            {errorRegister && <div className="error-message">{errorRegister}</div>}
         </div>
     );
 }

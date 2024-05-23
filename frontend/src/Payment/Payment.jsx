@@ -10,8 +10,9 @@ import isLoggedIn from "../utils";
 
 function Payments() {
     const [payments, setPayments] = useState([]);
-    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null); // Estado para armazenar a mensagem de erro
+    const navigate = useNavigate();
     const userLoggedIn = isLoggedIn();
 
     const onLogout = async () => {
@@ -27,12 +28,16 @@ function Payments() {
         async function fetchPayments() {
             try {
                 const data = await API.getPaymentByPatientID();
-                setPayments(data.payments);
-                console.log(data.payments);
-                setLoading(false);
-
+                if (data.payments && data.payments.length > 0) {
+                    setPayments(data.payments);
+                } else {
+                    setError("No payments found.");
+                }
             } catch (error) {
-                console.error('Error fetching payments:', error);
+                setError("No payments found.");
+
+            } finally {
+                setLoading(false);
             }
         }
 
@@ -52,6 +57,7 @@ function Payments() {
     const handleRowClick = (paymentId) => {
         navigate(`/payment-details`, {state: {paymentId}});
     };
+
     if (loading) {
         return (
             <div className="loading-container">
@@ -59,6 +65,7 @@ function Payments() {
             </div>
         );
     }
+
     return (
         <div>
             <nav className="navbar">
@@ -77,32 +84,34 @@ function Payments() {
             </nav>
             <div className="payments-page">
                 <h1>My Payments</h1>
-                <table className="payments-table">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Doctor</th>
-                        <th>Specialty</th>
-                        <th>Date</th>
-                        <th>Beginning</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {payments.map(payment => (
-                        <tr key={payment.id} onClick={() => handleRowClick(payment.id)} className="clickable-row">
-                            <td>{payment.id}</td>
-                            <td>Dr. {payment.doctor}</td>
-                            <td>{payment.specialty}</td>
-                            <td>{payment.date}</td>
-                            <td>{payment.start_time}</td>
-                            <td>{payment.value} €</td>
-                            <td>{getStatus(payment)}</td>
+                {error ? (
+                    <p className="error-message">{error}</p>
+                ) : (
+                    <table className="payments-table">
+                        <thead>
+                        <tr>
+                            <th>Doctor</th>
+                            <th>Specialty</th>
+                            <th>Date</th>
+                            <th>Beginning</th>
+                            <th>Amount</th>
+                            <th>Status</th>
                         </tr>
-                    ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        {payments.map(payment => (
+                            <tr key={payment.id} onClick={() => handleRowClick(payment.id)} className="clickable-row">
+                                <td>Dr. {payment.doctor}</td>
+                                <td>{payment.specialty}</td>
+                                <td>{payment.date}</td>
+                                <td>{payment.start_time}</td>
+                                <td>{payment.value} €</td>
+                                <td>{getStatus(payment)}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                )}
             </div>
         </div>
     );

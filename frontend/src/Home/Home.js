@@ -1,9 +1,8 @@
 import React from "react";
 import './Home.css'; // Garanta que este arquivo CSS esteja corretamente importado e ajustado
-import {FaUser} from 'react-icons/fa'; // Ícones de pesquisa e usuário
+import {FaUser} from 'react-icons/fa'; // Ícones de pesquisa
 import logo from '../logo.png'; // Ajuste o caminho para o seu logo
 import isLoggedIn from "../utils"; // Utilitário para verificar o status do login
-import Dashboard from '../Dashboard/Dashboard'; // Importa o componente Dashboard
 
 const Home = ({onLogout}) => {
     const userLoggedIn = isLoggedIn();

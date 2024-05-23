@@ -122,14 +122,13 @@ def get_appointment_by_patient_id_view(request):
     if not appointment:
         return JsonResponse(
             {"invalid": "Appointments do not exist", "message": False},
-            status=status.HTTP_400_BAD_REQUEST,
+            status=400,
         )
 
     response = []
     for p in appointment:
         slot = p.slot
         doctor = auxDoctor.getDoctorById(slot.doctor_id)
-        print(doctor, "------------_")
         specialty = auxSpecialty.getSpecialtiesById(doctor['specialty_id'])
         response.append(
             {"id": p.id, "patient": p.patient.id, "date": slot.date, "start_time": slot.start_time, "specialty": specialty['name'], "doctor": doctor['name'],

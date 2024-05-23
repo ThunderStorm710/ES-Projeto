@@ -45,3 +45,11 @@
 .payments-table td {
     color: #555;
 }
+
+.error-message {
+    color: red;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+}
+

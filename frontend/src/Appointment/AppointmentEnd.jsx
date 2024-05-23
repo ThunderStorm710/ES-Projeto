@@ -1,13 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useNavigate, useLocation} from 'react-router-dom';
 import API from "../api";
 import './AppointmentEnd.css';
+import isLoggedIn from "../utils";
+import logo from "../logo.png";
+import {FaUser} from "react-icons/fa";
 
 function AppointmentEnd() {
     const navigate = useNavigate();
     const location = useLocation();
-    const { appointmentId } = location.state;
+    const {appointmentId} = location.state;
     const [timeLeft, setTimeLeft] = useState(3600); // 1 hora em segundos
+
+    const userLoggedIn = isLoggedIn();
+
+    const onLogout = async () => {
+        try {
+            await API.logout();
+            window.location.reload();
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
 
     useEffect(() => {
         if (timeLeft === 0) {
@@ -44,11 +58,27 @@ function AppointmentEnd() {
     };
 
     return (
-        <div className="consultation-timer-page">
-            <h1>Consultation in Progress</h1>
-            <div className="timer-container">
-                <p className="timer">{formatTime(timeLeft)}</p>
-                <button onClick={handleEndConsultationClick} className="end-button">End Consultation</button>
+        <div>
+            <nav className="navbar">
+                <img src={logo} alt="ClinicPlus" className="navbar-logo"/>
+                <div className="navbar-links">
+                    <a href="/">Home</a>
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/appointment">My appointments</a>
+                    <a href="/payments">My payments</a>
+                    {userLoggedIn ? (
+                        <button onClick={onLogout}><FaUser/> Logout</button>
+                    ) : (
+                        <a href="/login"><FaUser/> Login</a>
+                    )}
+                </div>
+            </nav>
+            <div className="consultation-timer-page">
+                <h1>Consultation in Progress</h1>
+                <div className="timer-container">
+                    <p className="timer">{formatTime(timeLeft)}</p>
+                    <button onClick={handleEndConsultationClick} className="end-button">End Consultation</button>
+                </div>
             </div>
         </div>
     );
