@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import API from "../api";
 import './CreateAppointment.css';
+import logo from "../logo.png";
+import {FaUser} from "react-icons/fa";
+import isLoggedIn from "../utils";
 
 function CreateAppointment() {
     const [formData, setFormData] = useState({
@@ -21,6 +24,17 @@ function CreateAppointment() {
     const [error, setError] = useState('');
 
     const navigate = useNavigate();
+
+        const userLoggedIn = isLoggedIn();
+
+    const onLogout = async () => {
+        try {
+            await API.logout();
+            window.location.reload();
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
 
     useEffect(() => {
         async function fetchSpecialties() {
@@ -88,7 +102,7 @@ function CreateAppointment() {
     }, [formData.doctor]);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         console.log(name, value, "--")
         setFormData(prevState => ({
             ...prevState,
@@ -97,7 +111,7 @@ function CreateAppointment() {
     };
 
     const handleSpecialtyChange = (e) => {
-        const { value } = e.target;
+        const {value} = e.target;
         setFormData(prevState => ({
             ...prevState,
             specialty: value,
@@ -107,7 +121,7 @@ function CreateAppointment() {
     };
 
     const handleDoctorChange = (e) => {
-        const { value } = e.target;
+        const {value} = e.target;
         setFormData(prevState => ({
             ...prevState,
             doctor: value,
@@ -119,7 +133,7 @@ function CreateAppointment() {
         e.preventDefault();
         console.log('Form data:', formData);
         try {
-            const { doctor, date, timeSlot } = formData;
+            const {doctor, date, timeSlot} = formData;
             const response = await API.createAppointment(-1, doctor, timeSlot, 50);
             alert('Appointment created successfully!');
             // Redirecionar para a página de pagamento e passar o objeto appointment
@@ -131,57 +145,80 @@ function CreateAppointment() {
     };
 
     return (
-        <div className="create-appointment-page">
-            <h1>Create Appointment</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Specialty:
-                    <select name="specialty" value={formData.specialty} onChange={handleSpecialtyChange} disabled={loadingSpecialties}>
-                        <option value="">Select Specialty</option>
-                        {loadingSpecialties ? (
-                            <option>Loading...</option>
-                        ) : specialties.length > 0 ? (
-                            specialties.map(specialty => (
-                                <option key={specialty.SpecialtyId} value={specialty.SpecialtyId}>{specialty.name}</option>
-                            ))
-                        ) : (
-                            <option>No specialties available</option>
-                        )}
-                    </select>
-                </label>
-                <label>
-                    Doctor:
-                    <select name="doctor" value={formData.doctor} onChange={handleDoctorChange} disabled={loadingDoctors}>
-                        <option value="">Select Doctor</option>
-                        {loadingDoctors ? (
-                            <option>Loading...</option>
-                        ) : doctors.length > 0 ? (
-                            doctors.map(doctor => (
-                                <option key={doctor.DoctorId} value={doctor.DoctorId}>{doctor.DoctorName}</option>
-                            ))
-                        ) : (
-                            <option>No doctors available</option>
-                        )}
-                    </select>
-                </label>
-                <label>
-                    Time Slot:
-                    <select name="timeSlot" value={formData.timeSlot} onChange={handleChange} disabled={loadingTimeSlots}>
-                        <option value="">Select Time Slot</option>
-                        {loadingTimeSlots ? (
-                            <option>Loading...</option>
-                        ) : timeSlots.length > 0 ? (
-                            timeSlots.map(slot => (
-                                <option key={slot.slot_id} value={slot.slot_id}>{slot.date} {slot.start_time}</option>
-                            ))
-                        ) : (
-                            <option>No time slots available</option>
-                        )}
-                    </select>
-                </label>
-                <button type="submit" disabled={loadingSpecialties || loadingDoctors || loadingTimeSlots}>Create Appointment</button>
-            </form>
-            {error && <p className="error-message">{error}</p>}
+        <div>
+            <nav className="navbar">
+                <img src={logo} alt="ClinicPlus" className="navbar-logo"/>
+                <div className="navbar-links">
+                    <a href="/">Home</a>
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/appointment">My appointments</a>
+                    <a href="/payments">My payments</a>
+                    {userLoggedIn ? (
+                        <button onClick={onLogout}><FaUser/> Logout</button>
+                    ) : (
+                        <a href="/login"><FaUser/> Login</a>
+                    )}
+                </div>
+            </nav>
+            <div className="create-appointment-page">
+                <h1>Create Appointment</h1>
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        Specialty:
+                        <select name="specialty" value={formData.specialty} onChange={handleSpecialtyChange}
+                                disabled={loadingSpecialties}>
+                            <option value="">Select Specialty</option>
+                            {loadingSpecialties ? (
+                                <option>Loading...</option>
+                            ) : specialties.length > 0 ? (
+                                specialties.map(specialty => (
+                                    <option key={specialty.SpecialtyId}
+                                            value={specialty.SpecialtyId}>{specialty.name}</option>
+                                ))
+                            ) : (
+                                <option>No specialties available</option>
+                            )}
+                        </select>
+                    </label>
+                    <label>
+                        Doctor:
+                        <select name="doctor" value={formData.doctor} onChange={handleDoctorChange}
+                                disabled={loadingDoctors}>
+                            <option value="">Select Doctor</option>
+                            {loadingDoctors ? (
+                                <option>Loading...</option>
+                            ) : doctors.length > 0 ? (
+                                doctors.map(doctor => (
+                                    <option key={doctor.DoctorId} value={doctor.DoctorId}>{doctor.DoctorName}</option>
+                                ))
+                            ) : (
+                                <option>No doctors available</option>
+                            )}
+                        </select>
+                    </label>
+                    <label>
+                        Time Slot:
+                        <select name="timeSlot" value={formData.timeSlot} onChange={handleChange}
+                                disabled={loadingTimeSlots}>
+                            <option value="">Select Time Slot</option>
+                            {loadingTimeSlots ? (
+                                <option>Loading...</option>
+                            ) : timeSlots.length > 0 ? (
+                                timeSlots.map(slot => (
+                                    <option key={slot.slot_id}
+                                            value={slot.slot_id}>{slot.date} {slot.start_time}</option>
+                                ))
+                            ) : (
+                                <option>No time slots available</option>
+                            )}
+                        </select>
+                    </label>
+                    <button type="submit" disabled={loadingSpecialties || loadingDoctors || loadingTimeSlots}>Create
+                        Appointment
+                    </button>
+                </form>
+                {error && <p className="error-message">{error}</p>}
+            </div>
         </div>
     );
 }

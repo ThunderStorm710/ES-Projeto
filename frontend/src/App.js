@@ -12,7 +12,8 @@ import AppointmentBegin from "./Appointment/AppointmentBegin";
 import CreatePayment from "./Payment/PaymentDetails";
 import AppointmentEnd from "./Appointment/AppointmentEnd";
 import AllPayments from "./Payment/AllPayments";
-import AllAppointments from "./Appointment/AllAppointments";  // Supondo que o componente Home esteja em ./Home/Home
+import AllAppointments from "./Appointment/AllAppointments";
+import Dashboard from "./Dashboard/Dashboard";  // Supondo que o componente Home esteja em ./Home/Home
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -30,7 +31,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home onLogout={handleLogout} />} />
-        <Route path="/login" element={isLoggedIn() ? <Navigate replace to="/appointment" /> : <Login onLogin={() => setIsAuthenticated(true)} />} />
+        <Route path="/dashboard" element={isLoggedIn() ? <Dashboard /> : <Navigate replace to="/" />} />
+        <Route path="/login" element={isLoggedIn() ? <Navigate replace to="/" /> : <Login onLogin={() => setIsAuthenticated(true)} />} />
         <Route path="/appointment" element={isLoggedIn() ? <Appointment /> : <Navigate replace to="/" />} />
         <Route path="/newAppointment" element={isLoggedIn() ? <CreateAppointment /> : <Navigate replace to="/" />} />
         <Route path="/payments" element={isLoggedIn() ? <Payments /> : <Navigate replace to="/" />} />
@@ -38,6 +40,7 @@ function App() {
         <Route path="/payment-details" element={isLoggedIn() ? <CreatePayment /> : <Navigate replace to="/" />} />
         <Route path="/appointmentLIVE" element={isLoggedIn() ? <AppointmentEnd /> : <Navigate replace to="/" />} />
         <Route path="/AllPayments" element={isLoggedIn() ? <AllPayments /> : <Navigate replace to="/" />} />
+        <Route path="/AllAppointments" element={isLoggedIn() ? <AllAppointments /> : <Navigate replace to="/" />} />
         <Route path="/AllAppointments" element={isLoggedIn() ? <AllAppointments /> : <Navigate replace to="/" />} />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>

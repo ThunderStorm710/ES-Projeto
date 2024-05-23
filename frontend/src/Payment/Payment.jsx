@@ -4,11 +4,24 @@ import './Payment.css';
 import '../static/Loading.css';
 import API from "../api";
 import heart from "../static/heart.png";
+import logo from "../logo.png";
+import {FaUser} from "react-icons/fa";
+import isLoggedIn from "../utils";
 
 function Payments() {
     const [payments, setPayments] = useState([]);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
+    const userLoggedIn = isLoggedIn();
+
+    const onLogout = async () => {
+        try {
+            await API.logout();
+            window.location.reload();
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
 
     useEffect(() => {
         async function fetchPayments() {
@@ -42,39 +55,55 @@ function Payments() {
     if (loading) {
         return (
             <div className="loading-container">
-                <img src={heart} alt="Loading" className="loading-image" />
+                <img src={heart} alt="Loading" className="loading-image"/>
             </div>
         );
     }
     return (
-        <div className="payments-page">
-            <h1>My Payments</h1>
-            <table className="payments-table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Doctor</th>
-                    <th>Specialty</th>
-                    <th>Date</th>
-                    <th>Beginning</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                {payments.map(payment => (
-                    <tr key={payment.id} onClick={() => handleRowClick(payment.id)} className="clickable-row">
-                        <td>{payment.id}</td>
-                        <td>Dr. {payment.doctor}</td>
-                        <td>{payment.specialty}</td>
-                        <td>{payment.date}</td>
-                        <td>{payment.start_time}</td>
-                        <td>{payment.value} €</td>
-                        <td>{getStatus(payment)}</td>
+        <div>
+            <nav className="navbar">
+                <img src={logo} alt="ClinicPlus" className="navbar-logo"/>
+                <div className="navbar-links">
+                    <a href="/">Home</a>
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/appointment">My appointments</a>
+                    <a href="/payments">My payments</a>
+                    {userLoggedIn ? (
+                        <button onClick={onLogout}><FaUser/> Logout</button>
+                    ) : (
+                        <a href="/login"><FaUser/> Login</a>
+                    )}
+                </div>
+            </nav>
+            <div className="payments-page">
+                <h1>My Payments</h1>
+                <table className="payments-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Doctor</th>
+                        <th>Specialty</th>
+                        <th>Date</th>
+                        <th>Beginning</th>
+                        <th>Amount</th>
+                        <th>Status</th>
                     </tr>
-                ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {payments.map(payment => (
+                        <tr key={payment.id} onClick={() => handleRowClick(payment.id)} className="clickable-row">
+                            <td>{payment.id}</td>
+                            <td>Dr. {payment.doctor}</td>
+                            <td>{payment.specialty}</td>
+                            <td>{payment.date}</td>
+                            <td>{payment.start_time}</td>
+                            <td>{payment.value} €</td>
+                            <td>{getStatus(payment)}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

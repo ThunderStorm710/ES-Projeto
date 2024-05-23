@@ -3,9 +3,9 @@ import boto3
 
 
 def index_faces(image, id):
-    aws_access_key_id = "ASIA453LFNKUME2T6BRA"
-    aws_secret_access_key = "CCD8prglTy5zhdodGl/SL0sbRoIHgxL7adcNVSfi"
-    aws_session_token = "IQoJb3JpZ2luX2VjEO7//////////wEaCXVzLXdlc3QtMiJGMEQCIGD6p70+VwEIs2tp8IrQGaowa4cS9B7++HMxzm4mYAaiAiA3OuFwDDX9yTGd9XJtlk1q/QRgk51HPnlRLzhYEPmMySq0AghnEAAaDDg4ODc0NjEwOTYwOCIMxis+QFMfZstg0gJsKpECm9SaKpv8gmGqUkpNumc8FGD3r5f5COjDjogJpR/xs6mqh27wEiZBY1yKVmiDKzvhrGuB26wAjbyo0KigFDPVxjvlcBVIt7DpRIYcVDzCEpV4wEEsm+JAMDjLdLPKhbwbV2k2Zh36A/FKsVg4bSTNfNWK/la19acIVEjz5zG/U4Wn/nmsjJKv6VB3LXuVXc2pDaFLB2buhk+Dn/ZCi3sDemOBn0zpCVHEjJuuyHdFbQdu55uabEHN2E0tvFDyV7CVD+uNoMGfOgg/u0yUMrbZs6YTlhrBLVT7F0GJF/ppR+vYHy7oJ8QZoYEg6guQ2+0LAXTc20OEZBQ1khmNTDLWESD0W0AayzWSdCTeKorspY4iMPjSubIGOp4BrsppShygHPrLrJLn2w/nf06XrQ2ddZTLaId32rZvZYEL3c6tH0xGnH01jX+o8g4L0p2AwCfvNPQZK8hv6YuRLrhNsk4VlhvQTBOdoD+e2UAsHxice2cbKnwkBcRHIbg7f5DDzGAxMfcyCsSfiEf47GV3IO+zmarggUl1J1FAGMAeYifADMDHIkC+QqQNnh9SSysSDhyioWZYPpr7Mcc="
+    aws_access_key_id = "ASIA453LFNKULIIZ7X5A"
+    aws_secret_access_key = "UG8Fya0GhXSL+nyItOz/+52+LV3YBoHQnixwQj7P"
+    aws_session_token = "IQoJb3JpZ2luX2VjEP7//////////wEaCXVzLXdlc3QtMiJIMEYCIQC12F7GrcGT2jEZzNkXLaK/D1GhSBsMRBCxCHv1Wm6AlQIhAO6H7gs9LhCDpZP1P7gQvNlWuV3D4wkQM2An/AURagCFKrQCCHcQABoMODg4NzQ2MTA5NjA4IgwcIQLzdRPF9kwJTXwqkQJx4z0wp/Nw0rutgIlbIKgI6apVHvPL6ER6NUX4ZT0Pw/cGEwjlhe5prpXpq6/4Rz2qAZ6eXRJYLkNVJyhxP7noETQ3CLidAJ/g1p4pszRuY0MszxjPbD+TSIx3OSD8Q42wAASBdvmy5pJ1JYOTJX6nmdTO9yxG8qeRYknRUNOL2mSi5ZEckVJRGuStpYC8+0Rdlffz0CQlR/yVkbwitZ/LJua748s9KCJCwzBBkO6krZc6Nrwpjja9vCNpDgFviZVQCCjlpfZHJWG7oqu+8EygPIUJVeGTyf9V1yQu3XJ5AzpYy1NcoJBZZiQ/3KXqcCgwKdZOgyeUZ93oROXCaJfOAffE8PKDvVHABpIbBIuZe/Qwrpi9sgY6nAGV3OrZnbBU5Yqx0m5+OmqsF1QIPBKTFT+AMP5Pnb46SAZ3d0guGcLNcuTEySPieaA0F6a2wWHyHsLyb3wjIkjgW2YDrRkjrpd+pSC2cBKjc1PTQ6XbdOblocDvrROjhs4NpnX7o/TPc/KqbjXAI6+NtoGwXZS85ISRA7AguiQ6YxsyKvMgmi4ZPJ14iaIhXyIwnpkDAPvosEb+aoc="
     s3 = boto3.resource('s3', region_name='us-east-1', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key,
                         aws_session_token=aws_session_token)
 
