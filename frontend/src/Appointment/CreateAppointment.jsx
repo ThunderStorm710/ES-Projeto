@@ -67,9 +67,11 @@ function CreateAppointment() {
     useEffect(() => {
         async function fetchTimeSlots() {
             if (formData.doctor) {
+                console.log(formData.doctor)
                 setLoadingTimeSlots(true);
                 try {
                     const data = await API.getTimeSlotsByDoctorId(formData.doctor);
+                    console.log("DADOS", data);
                     setTimeSlots(data.slots || []);
                     setLoadingTimeSlots(false);
                 } catch (error) {
@@ -87,6 +89,7 @@ function CreateAppointment() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        console.log(name, value, "--")
         setFormData(prevState => ({
             ...prevState,
             [name]: value
@@ -162,10 +165,6 @@ function CreateAppointment() {
                     </select>
                 </label>
                 <label>
-                    Date:
-                    <input type="date" name="date" value={formData.date} onChange={handleChange} required />
-                </label>
-                <label>
                     Time Slot:
                     <select name="timeSlot" value={formData.timeSlot} onChange={handleChange} disabled={loadingTimeSlots}>
                         <option value="">Select Time Slot</option>
@@ -173,7 +172,7 @@ function CreateAppointment() {
                             <option>Loading...</option>
                         ) : timeSlots.length > 0 ? (
                             timeSlots.map(slot => (
-                                <option key={slot.slot_id} value={slot.slot_id}>{slot.start_time}</option>
+                                <option key={slot.slot_id} value={slot.slot_id}>{slot.date} {slot.start_time}</option>
                             ))
                         ) : (
                             <option>No time slots available</option>

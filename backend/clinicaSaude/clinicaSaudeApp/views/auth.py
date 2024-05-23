@@ -137,6 +137,38 @@ def get_slots_by_doctor_view(request, id):
 
 
 @api_view(["GET"])
+def get_slots_by_data_view(request, id):
+
+    print(request.data)
+    if id <= 0:
+        return JsonResponse(
+            {"invalid": "Incorrect field", "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    data = auxDoctor.getDoctorById(str(id))
+
+    if not data:
+        return JsonResponse(
+            {"invalid": "No doctors registered", "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    slots = TimeSlot.objects.filter(doctor_id=id, is_available=True)
+
+
+    if not slots:
+        return JsonResponse(
+            {"invalid": "No slots registered", "message": False},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    slots = [{"slot_id": slot.id, "date": slot.date, "start_time": slot.start_time} for slot in slots]
+    slots.sort(key=lambda x: x["slot_id"])
+
+    return JsonResponse({"slots": slots})
+
+
+@api_view(["GET"])
 def get_doctors_by_specialty_view(request, id):
     if id <= 0:
         return JsonResponse(

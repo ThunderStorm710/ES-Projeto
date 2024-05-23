@@ -74,7 +74,7 @@ class API {
         return this.makeRequest("searchFace/", "POST", formData);
     }
 
-        static indexFace(appointmentId, title, content, image) {
+    static indexFace(appointmentId, title, content, image) {
         const formData = new FormData();
         formData.append('appointmentId', appointmentId);
         formData.append('title', title);
@@ -85,7 +85,6 @@ class API {
 
         return this.makeRequest("indexFace/", "POST", formData);
     }
-
 
 
     static register(username, password, repeat_password, email) {
@@ -239,6 +238,7 @@ class API {
     static getTimeSlotsByDoctorId(doctor_id) {
         return this.makeJSONRequest(`doctors/${doctor_id}/slots/`);
     }
+
 
     static getDateSlotsByDoctorId(doctor_id) {
         return this.makeJSONRequest(`doctors/${doctor_id}/slots/day/`);
